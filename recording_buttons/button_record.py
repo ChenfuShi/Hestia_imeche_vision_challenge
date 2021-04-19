@@ -11,6 +11,9 @@ import datetime
 START_BUTTON_GPIO = 18
 END_BUTTON_GPIO = 23
 
+RECORD_LED_GPIO = 26
+
+
 class camera_setup():
     def __init__(self,):
         self.is_recording = False
@@ -27,6 +30,7 @@ class camera_setup():
             self.camera.start_recording(f"my_test_video{datetime.datetime.now().strftime('%Y%m%d-%H%M%S')}.h264",
                 format='h264', quality=20)
             print("started recording")
+            GPIO.output(RECORD_LED_GPIO, 1)
         else:
             print("already recording")
 
@@ -35,6 +39,7 @@ class camera_setup():
             self.camera.stop_recording()
             self.is_recording = False
             print("stopped_recording")
+            GPIO.output(RECORD_LED_GPIO, 0)
         else:
             print("no recording in progress")
 
@@ -57,6 +62,9 @@ if __name__ == '__main__':
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(START_BUTTON_GPIO, GPIO.IN, pull_up_down=GPIO.PUD_UP)
     GPIO.setup(END_BUTTON_GPIO, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+
+    GPIO.setup(RECORD_LED_GPIO, GPIO.OUT)
+    GPIO.output(RECORD_LED_GPIO, 0)
 
     GPIO.add_event_detect(START_BUTTON_GPIO, GPIO.RISING, 
             callback=start_button_pressed_callback, bouncetime=100)
