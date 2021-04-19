@@ -24,7 +24,7 @@ class camera_setup():
             self.initialized = True
             self.camera = PiCamera()
             self.camera.exposure_compensation = -6
-            self.camera.resolution = (640, 480)
+            self.camera.resolution = (1000, 1000)
         if self.is_recording == False:
             self.is_recording = True
             self.camera.start_recording(f"my_test_video{datetime.datetime.now().strftime('%Y%m%d-%H%M%S')}.h264",
