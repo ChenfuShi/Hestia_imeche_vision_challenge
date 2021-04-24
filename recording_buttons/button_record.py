@@ -23,13 +23,13 @@ class camera_setup():
         if (self.is_recording == False) and (self.initialized == False):
             self.initialized = True
             self.camera = PiCamera()
-            self.camera.exposure_compensation = -6
+            self.camera.exposure_compensation = -8
             self.camera.resolution = (1000, 1000)
             self.camera.framerate = 10
         if self.is_recording == False:
             self.is_recording = True
             self.camera.start_recording(f"my_test_video{datetime.datetime.now().strftime('%Y%m%d-%H%M%S')}.h264",
-                format='h264', quality=20)
+                format='h264', quality=15)
             print("started recording")
             GPIO.output(RECORD_LED_GPIO, 1)
         else:
