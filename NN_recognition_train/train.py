@@ -24,6 +24,6 @@ if __name__ == '__main__':
 
     model = retrieve_mobilenet_model()
 
-    model.fit(tf_data, epochs = 5, verbose = 2,)
+    model.fit(tf_data, epochs = 5, ) #verbose = 2,
     
     model.save(f'../weights/{model_name}.tf', save_format = "tf")
