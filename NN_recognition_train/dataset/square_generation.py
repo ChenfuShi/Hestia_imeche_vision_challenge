@@ -11,7 +11,7 @@ from scipy.stats import norm
 
 IMAGE_SIZE = 1000
 
-FONTS_DIR = "C:/Users/MDEFSCS4/Documents/GitHub/Hestia_imeche_vision_challenge/NN_recognition_train/dataset/fonts/*ttf"
+FONTS_DIR = "dataset/fonts/*ttf"
 
 SPOTLIGHT_PROB = 0.3
 
