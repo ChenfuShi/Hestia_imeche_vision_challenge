@@ -80,7 +80,7 @@ def bg_parallel():
     
 
 def retrieve_tf_dataset():
-    tf_data = tf.data.Dataset.from_generator(bg_parallel, output_types = (tf.float32,(tf.int8,tf.float32,tf.float32)), output_shapes = ((1000,1000,3),((),(8),(36))))
+    tf_data = tf.data.Dataset.from_generator(bg_parallel, output_types = (tf.float32,(tf.float32,tf.float32,tf.float32)), output_shapes = ((1000,1000,3),((),(8),(36))))
 
     tf_data = tf_data.prefetch(buffer_size = 200)
     tf_data = tf_data.map((lambda image ,Y: (tf.image.resize(image, (224, 224)), Y)))

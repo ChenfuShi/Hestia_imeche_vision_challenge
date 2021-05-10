@@ -5,11 +5,25 @@ import pandas as pd
 import numpy as np
 import random
 
+def custom_crossentropy(y_true,y_pred):
+    NAN_vals = tf.math.is_nan(tf.reduce_sum(y_true,axis = 1))
+    y_pred_filtered = y_pred[~tf.math.is_nan(tf.reduce_sum(y_true,axis = 1))]
+    y_true_filtered = y_true[~tf.math.is_nan(tf.reduce_sum(y_true,axis = 1))]
+    loss = tf.keras.losses.categorical_crossentropy(y_true_filtered,y_pred_filtered)
+    return loss
+
+def custom_mae(y_true,y_pred):
+    NAN_vals = tf.math.is_nan(tf.reduce_sum(y_true,axis = 1))
+    y_pred_filtered = y_pred[~tf.math.is_nan(tf.reduce_sum(y_true,axis = 1))]
+    y_true_filtered = y_true[~tf.math.is_nan(tf.reduce_sum(y_true,axis = 1))]
+    loss = tf.reduce_mean(tf.abs(y_true_filtered - y_pred_filtered))
+    return loss
 
 def retrieve_mobilenet_model():
     base_model = tf.keras.applications.MobileNetV2(input_shape=(224,224,3),
                                                include_top=False,
                                                weights='imagenet')
+    base_model.trainable = False
     preprocess_input = tf.keras.applications.mobilenet_v2.preprocess_input
 
     inputs = tf.keras.Input(shape=(224, 224, 3))
@@ -25,7 +39,7 @@ def retrieve_mobilenet_model():
     model = tf.keras.Model(inputs, [presence, coordinates, letter])
 
     model.compile(optimizer=tf.keras.optimizers.Adam(lr=0.0003),
-                loss={"presence":"binary_crossentropy", "coordinates":tf.keras.losses.MeanAbsoluteError(), "letter":tf.keras.losses.CategoricalCrossentropy(from_logits=False)},
-                metrics={"presence":'accuracy',"coordinates":["mae", "mse"], "letter":"accuracy"})
+                loss={"presence":tf.keras.losses.binary_crossentropy, "coordinates":custom_mae, "letter":custom_crossentropy},
+                metrics={"presence":'accuracy'})
 
     return model
