@@ -6,14 +6,12 @@ import numpy as np
 import random
 
 def custom_crossentropy(y_true,y_pred):
-    NAN_vals = tf.math.is_nan(tf.reduce_sum(y_true,axis = 1))
     y_pred_filtered = y_pred[~tf.math.is_nan(tf.reduce_sum(y_true,axis = 1))]
     y_true_filtered = y_true[~tf.math.is_nan(tf.reduce_sum(y_true,axis = 1))]
     loss = tf.keras.losses.categorical_crossentropy(y_true_filtered,y_pred_filtered)
     return loss
 
 def custom_mae(y_true,y_pred):
-    NAN_vals = tf.math.is_nan(tf.reduce_sum(y_true,axis = 1))
     y_pred_filtered = y_pred[~tf.math.is_nan(tf.reduce_sum(y_true,axis = 1))]
     y_true_filtered = y_true[~tf.math.is_nan(tf.reduce_sum(y_true,axis = 1))]
     loss = tf.reduce_mean(tf.abs(y_true_filtered - y_pred_filtered))

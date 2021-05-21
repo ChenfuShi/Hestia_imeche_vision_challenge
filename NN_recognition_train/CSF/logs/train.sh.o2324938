@@ -96,3 +96,15 @@ Epoch 3/10
 Epoch 4/10
 313/313 - 169s - loss: 3.8416 - presence_loss: 0.0652 - coordinates_loss: 0.1838 - letter_loss: 3.5926 - presence_accuracy: 0.9811
 Epoch 5/10
+313/313 - 170s - loss: 3.8385 - presence_loss: 0.0648 - coordinates_loss: 0.1813 - letter_loss: 3.5925 - presence_accuracy: 0.9795
+Epoch 6/10
+313/313 - 167s - loss: 3.8435 - presence_loss: 0.0703 - coordinates_loss: 0.1782 - letter_loss: 3.5950 - presence_accuracy: 0.9807
+Epoch 7/10
+313/313 - 172s - loss: 3.8252 - presence_loss: 0.0606 - coordinates_loss: 0.1743 - letter_loss: 3.5903 - presence_accuracy: 0.9822
+Epoch 8/10
+313/313 - 167s - loss: 3.8271 - presence_loss: 0.0634 - coordinates_loss: 0.1711 - letter_loss: 3.5926 - presence_accuracy: 0.9800
+Epoch 9/10
+313/313 - 163s - loss: 3.8117 - presence_loss: 0.0555 - coordinates_loss: 0.1712 - letter_loss: 3.5850 - presence_accuracy: 0.9844
+Epoch 10/10
+313/313 - 165s - loss: 3.8080 - presence_loss: 0.0566 - coordinates_loss: 0.1668 - letter_loss: 3.5845 - presence_accuracy: 0.9829
+2021-05-10 08:24:38.293390: W tensorflow/python/util/util.cc:348] Sets are not currently considered sequences, but this may change in the future, so consider avoiding using them.

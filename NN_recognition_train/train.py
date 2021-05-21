@@ -30,4 +30,4 @@ if __name__ == '__main__':
 
     model.fit(tf_data, epochs = 10, verbose = 2,)
     
-    model.save(f'../weights/{model_name}.tf', save_format = "tf")
+    model.save(f'weights/{model_name}.tf', save_format = "tf")
