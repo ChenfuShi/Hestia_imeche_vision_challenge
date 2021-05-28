@@ -20,6 +20,8 @@ if __name__ == '__main__':
 
     model_name = sys.argv[1]
 
+    print(f"MODEL NAME = {model_name}")
+
     tf_data = retrieve_tf_dataset()
 
     model = retrieve_mobilenet_model()

@@ -26,18 +26,14 @@ list_of_grass_images = glob.glob(DATASET_DIR + "/*jpeg")
 list_of_negative_images = glob.glob(TRUE_NEGATIVES_DIR + "/*jpeg")
 
 def align_coords(coords):
-    sums = np.array((coords["A_X"] + coords["A_Y"], coords["B_X"] + coords["B_Y"], coords["C_X"] + coords["C_Y"], coords["D_X"] + coords["D_Y"]))
     X = np.array((coords["A_X"], coords["B_X"], coords["C_X"], coords["D_X"]))
     Y = np.array((coords["A_Y"], coords["B_Y"], coords["C_Y"], coords["D_Y"]))
-    idx_Y = np.argsort(Y)
-    top_left = np.argmin(sums)
-    bottom_right = np.argmax(sums)
-    a = list(idx_Y)
-    a.remove(top_left)
-    a.remove(bottom_right)
-    top_right = a[0]
-    bottom_left = [1]
-    return np.array((X[top_left]/1000, Y[top_left]/1000, X[bottom_right]/1000, Y[bottom_right]/1000, X[top_right]/1000, Y[top_right]/1000, X[bottom_left].item()/1000, Y[bottom_left].item()/1000,))
+    average_X = np.mean(X)
+    average_Y = np.mean(Y)
+    total_h = np.max(Y) - np.min(Y)
+    total_w = np.max(X) - np.min(X)
+    
+    return np.array((average_X/1000, average_Y/1000, total_h/1000, total_w/1000))
 
 def train_generator():
     while True:
@@ -52,13 +48,13 @@ def train_generator():
                 img_file = random.choice(list_of_grass_images)
                 X = np.array(Image.open(img_file))
                 presence = 0
-                position = np.full(8, np.nan)
+                position = np.full(4, np.nan)
                 enc_letter = np.full(36, np.nan)
         else:
             img_file = random.choice(list_of_negative_images)
             X = np.array(Image.open(img_file))
             presence = 0
-            position = np.full(8, np.nan)
+            position = np.full(4, np.nan)
             enc_letter = np.full(36, np.nan)
         # preprocess input for imagenet style
         yield X, (presence, position, enc_letter)
@@ -72,7 +68,7 @@ def bg_parallel():
 
     pqueue = multiprocessing.Queue(maxsize=100)
 
-    p_list = [multiprocessing.Process(target=_bg_gen, args=(train_generator, pqueue)) for x in range(8)]
+    p_list = [multiprocessing.Process(target=_bg_gen, args=(train_generator, pqueue)) for x in range(7)]
 
     [p.start() for p in p_list]
     for i in range(10000):
@@ -80,14 +76,13 @@ def bg_parallel():
     
 
 def retrieve_tf_dataset():
-    tf_data = tf.data.Dataset.from_generator(bg_parallel, output_types = (tf.float32,(tf.float32,tf.float32,tf.float32)), output_shapes = ((1000,1000,3),((),(8),(36))))
+    tf_data = tf.data.Dataset.from_generator(bg_parallel, output_types = (tf.float32,(tf.float32,tf.float32,tf.float32)), output_shapes = ((1000,1000,3),((),(4),(36))))
 
+    tf_data = tf_data.map((lambda image ,Y: (tf.image.resize(image, (224, 224)), Y)), num_parallel_calls = 6)
+    tf_data = tf_data.map((lambda image ,Y: (tf.image.random_contrast(image, 0.8, 1.2), Y)), num_parallel_calls = 6)
+    tf_data = tf_data.map((lambda image ,Y: (tf.image.random_brightness(image, 40,), Y)), num_parallel_calls = 6)
+    tf_data = tf_data.map((lambda image ,Y: (tf.image.random_saturation(image, 0.8, 1.2), Y)), num_parallel_calls = 6)
+    tf_data = tf_data.map((lambda image ,Y: (tf.image.random_hue(image, 0.05), Y)), num_parallel_calls = 6)
     tf_data = tf_data.prefetch(buffer_size = 200)
-    tf_data = tf_data.map((lambda image ,Y: (tf.image.resize(image, (224, 224)), Y)))
-    tf_data = tf_data.map((lambda image ,Y: (tf.image.random_contrast(image, 0.8, 1.2), Y)))
-    tf_data = tf_data.map((lambda image ,Y: (tf.image.random_brightness(image, 40,), Y)))
-    tf_data = tf_data.map((lambda image ,Y: (tf.image.random_saturation(image, 0.8, 1.2), Y)))
-    tf_data = tf_data.map((lambda image ,Y: (tf.image.random_hue(image, 0.05), Y)))
-
     tf_data = tf_data.batch(32)
     return tf_data
