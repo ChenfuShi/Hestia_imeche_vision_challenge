@@ -39,7 +39,7 @@ def align_coords(coords):
 
 csv_file = "../data/custom_data_1.csv"
 custom_labels = pd.read_csv(csv_file, index_col = "image")
-list_of_extra_images = glob.glob("../data/ADDITIONAL" + "/*jpeg")
+list_of_extra_images = glob.glob("../data/ADDITIONAL" + "/*jp*")
 def retrieve_extra():
     img_file = random.choice(list_of_extra_images)
     img_name = os.path.basename(img_file)
