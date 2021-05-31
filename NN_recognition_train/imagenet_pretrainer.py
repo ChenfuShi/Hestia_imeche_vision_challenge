@@ -10,7 +10,7 @@ tf.config.threading.set_inter_op_parallelism_threads(10)
 
 IMAGE_SIZE = 400
 
-name = "test_mobilenet_resblocks_2_remove_batch_norm"
+name = "test_mobilenet_faster"
 
 def _inverted_res_block(inputs, filters, expansion, stride,):
     x = inputs
@@ -33,17 +33,20 @@ def _inverted_res_block(inputs, filters, expansion, stride,):
 
 def model_to_train():
     inputs = tf.keras.Input(shape=(IMAGE_SIZE, IMAGE_SIZE, 3))
-    x = tf.keras.layers.Conv2D(10, kernel_size=3, padding='same', activation=None, use_bias=False)(inputs)
+    x = tf.keras.layers.Conv2D(6, kernel_size=3, padding='same', activation=None, use_bias=False)(inputs)
     x = tf.keras.layers.BatchNormalization(epsilon=1e-3,momentum=0.999)(x)
     x = tf.keras.layers.ReLU(6.)(x)
-    x = _inverted_res_block(x, filters=10, expansion=1, stride=1,)
+    x = _inverted_res_block(x, filters=10, expansion=3, stride=2,)
     x = _inverted_res_block(x, filters=20, expansion=3, stride=2,)
     x = _inverted_res_block(x, filters=20, expansion=3, stride=1,)
+    x = _inverted_res_block(x, filters=80, expansion=3, stride=2,)
+    x = _inverted_res_block(x, filters=80, expansion=3, stride=1,)
+    x = _inverted_res_block(x, filters=80, expansion=3, stride=1,)
     x = _inverted_res_block(x, filters=40, expansion=3, stride=2,)
     x = _inverted_res_block(x, filters=40, expansion=3, stride=1,)
-    x = _inverted_res_block(x, filters=40, expansion=3, stride=2,)
     x = _inverted_res_block(x, filters=40, expansion=3, stride=1,)
     x = _inverted_res_block(x, filters=6, expansion=3, stride=2,)
+    x = _inverted_res_block(x, filters=6, expansion=3, stride=1,)
     # x = tf.keras.layers.BatchNormalization(epsilon=1e-3,momentum=0.999)(x) # because last block ends with a batchnorm
     x = tf.keras.layers.ReLU(6.)(x)
 
@@ -83,6 +86,7 @@ x = tf.keras.layers.Flatten()(x)
 x = tf.keras.layers.Dense(1000, activation = None, use_bias=False)(x)
 x = tf.keras.layers.BatchNormalization(epsilon=1e-3,momentum=0.999)(x)
 x = tf.keras.layers.ReLU(6.)(x)
+x = tf.keras.layers.Dropout(0.2)(x)
 x = tf.keras.layers.Dense(1000, activation = "sigmoid", use_bias=True)(x)
 
 model = tf.keras.Model(inputs, x)

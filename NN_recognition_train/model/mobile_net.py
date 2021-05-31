@@ -20,11 +20,11 @@ def custom_mse(y_true,y_pred):
     return loss
 
 def retrieve_mobilenet_model():
-    base_model = tf.keras.models.load_model('weights/test_mobilenet_resblocks.tf')
+    base_model = tf.keras.models.load_model('weights/test_mobilenet_resblocks.tf').layers[3]
     base_model.trainable = False
     preprocess_input = tf.keras.applications.mobilenet_v2.preprocess_input
 
-    inputs = tf.keras.Input(shape=(224, 224, 3))
+    inputs = tf.keras.Input(shape=(400, 400, 3))
     x = preprocess_input(inputs)
     x = base_model(x)
     x = tf.keras.layers.GlobalAveragePooling2D()(x)

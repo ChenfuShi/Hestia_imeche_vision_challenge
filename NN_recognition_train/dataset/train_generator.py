@@ -97,7 +97,7 @@ def bg_parallel():
     for i in range(10000):
         while True:
             a = pqueue.get()
-            if type(a) == "tuple":
+            if type(a) is tuple:
                 if a[0].shape == (1000,1000,3):
                     break
             print(a)

@@ -1,0 +1,39 @@
+tools/gcc/git(41):ERROR:105: Unable to locate a modulefile for 'tools/gcc/git/2.8.2'
+              total        used        free      shared  buff/cache   available
+Mem:         128674        3690      116600         930        8383      123462
+Swap:         16383         193       16190
+/opt/site/sge/default/spool/node650/job_scripts/2481164: line 14: nvidia-smi: command not found
+2021-05-31 14:49:32.845835: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.10.1
+2021-05-31 14:49:43.480910: I tensorflow/compiler/jit/xla_cpu_device.cc:41] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-05-31 14:49:43.481725: W tensorflow/stream_executor/platform/default/dso_loader.cc:60] Could not load dynamic library 'libcuda.so.1'; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory
+2021-05-31 14:49:43.481748: W tensorflow/stream_executor/cuda/cuda_driver.cc:326] failed call to cuInit: UNKNOWN ERROR (303)
+2021-05-31 14:49:43.481779: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (node650.pri.csf3.alces.network): /proc/driver/nvidia/version does not exist
+2021-05-31 14:49:43.482169: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  SSE4.1 SSE4.2 AVX AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-05-31 14:49:43.484381: I tensorflow/compiler/jit/xla_gpu_device.cc:99] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-05-31 14:49:49.034302: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:116] None of the MLIR optimization passes are enabled (registered 2)
+2021-05-31 14:49:49.034862: I tensorflow/core/platform/profile_utils/cpu_utils.cc:112] CPU Frequency: 2600050000 Hz
+WARNING:tensorflow:AutoGraph could not transform <function custom_mse at 0x2b6c070ae940> and will run it as-is.
+Please report this to the TensorFlow team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output.
+Cause: module 'gast' has no attribute 'Index'
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+MODEL NAME = nonpretrained_mobilnet_faster
+Epoch 1/3
+WARNING:tensorflow:AutoGraph could not transform <function custom_crossentropy at 0x2b6bf813b160> and will run it as-is.
+Please report this to the TensorFlow team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output.
+Cause: module 'gast' has no attribute 'Index'
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+313/313 - 269s - loss: 3.7619 - presence_loss: 0.6350 - coordinates_loss: 0.0535 - letter_loss: 3.0733 - presence_accuracy: 0.6955
+Epoch 2/3
+313/313 - 278s - loss: 2.7289 - presence_loss: 0.6149 - coordinates_loss: 0.0397 - letter_loss: 2.0743 - presence_accuracy: 0.6964
+Epoch 3/3
+313/313 - 365s - loss: 2.6753 - presence_loss: 0.6140 - coordinates_loss: 0.0391 - letter_loss: 2.0221 - presence_accuracy: 0.6970
+Epoch 1/5
+313/313 - 1692s - loss: 3.0834 - presence_loss: 0.6229 - coordinates_loss: 0.1131 - letter_loss: 2.3474 - presence_accuracy: 0.7034
+Epoch 2/5
+313/313 - 1722s - loss: 2.7287 - presence_loss: 0.6017 - coordinates_loss: 0.0642 - letter_loss: 2.0629 - presence_accuracy: 0.6993
+Epoch 3/5
+313/313 - 1721s - loss: 2.6351 - presence_loss: 0.5723 - coordinates_loss: 0.0623 - letter_loss: 2.0005 - presence_accuracy: 0.7118
+Epoch 4/5
+313/313 - 1731s - loss: 2.5205 - presence_loss: 0.5402 - coordinates_loss: 0.0623 - letter_loss: 1.9180 - presence_accuracy: 0.7225
+Epoch 5/5
