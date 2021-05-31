@@ -37,3 +37,5 @@ Epoch 3/5
 Epoch 4/5
 313/313 - 1731s - loss: 2.5205 - presence_loss: 0.5402 - coordinates_loss: 0.0623 - letter_loss: 1.9180 - presence_accuracy: 0.7225
 Epoch 5/5
+313/313 - 1654s - loss: 2.4328 - presence_loss: 0.5225 - coordinates_loss: 0.0622 - letter_loss: 1.8481 - presence_accuracy: 0.7362
+2021-05-31 17:27:06.407019: W tensorflow/python/util/util.cc:348] Sets are not currently considered sequences, but this may change in the future, so consider avoiding using them.
