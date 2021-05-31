@@ -14,14 +14,14 @@ class camera_obj:
         # Initialize the PiCamera and the camera image stream
         self.camera = PiCamera()
         self.camera.exposure_compensation = -8
-        self.camera.resolution = (1000, 1000)
+        self.camera.resolution = (1024, 1008)
         self.camera.framerate = 10
         time.sleep(1)
 
     def retrieve_frame(self):
-        output = np.empty((1000, 1000, 3), dtype=np.uint8)
+        output = np.empty((1008,1024,3), dtype=np.uint8)
         self.camera.capture(output, 'rgb')
-        return output
+        return output[:1000, :1000, :]
 
     def shutdown(self):
         self.camera.close()
