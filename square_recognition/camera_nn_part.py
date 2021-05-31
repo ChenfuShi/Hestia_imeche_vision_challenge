@@ -15,7 +15,7 @@ camera = camera_obj()
 
 while(True):
     # Capture frame-by-frame
-    frame = camera.retrieve_frame
+    frame = camera.retrieve_frame()
 
     # Display the resulting frame
     cv2.imshow('frame',frame)
