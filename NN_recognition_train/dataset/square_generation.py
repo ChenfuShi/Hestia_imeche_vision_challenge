@@ -26,7 +26,7 @@ def get_random_bright_color():
     return R,G,B
 
 def get_dirty_white():
-    h,s,l = random.random(), random.random()/3, 0.8 + random.random()/5.0
+    h,s,l = random.random(), random.random()/3, 0.95 + random.random()/20.0
     R,G,B = [int(256*i) for i in colorsys.hls_to_rgb(h,l,s)]
     return R,G,B
 

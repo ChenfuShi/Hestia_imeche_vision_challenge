@@ -15,6 +15,7 @@ TRUE_NEGATIVES_DIR = "../data/true_negatives_pretrain"
 
 STITCH_PROB = 0.5
 TRUE_NEG_PRO = 0.2
+SPIKE_IN_PROB = 0.01
 
 alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 # define a mapping of chars to integers
@@ -35,8 +36,30 @@ def align_coords(coords):
     
     return np.array((average_X/1000, average_Y/1000, total_h/1000, total_w/1000))
 
+
+csv_file = "../data/custom_data_1.csv"
+custom_labels = pd.read_csv(csv_file, index_col = "image")
+list_of_extra_images = glob.glob("../data/ADDITIONAL" + "/*jpeg")
+def retrieve_extra():
+    img_file = random.choice(list_of_extra_images)
+    img_name = os.path.basename(img_file)
+    X = np.array(Image.open(img_file))
+    presence = 1
+    mid_X = (custom_labels.loc[img_name,"point_a"] + custom_labels.loc[img_name,"point_c"]) / 2 
+    mid_Y = (custom_labels.loc[img_name,"point_b"] + custom_labels.loc[img_name,"point_d"]) / 2 
+    total_h = custom_labels.loc[img_name,"point_d"] - custom_labels.loc[img_name,"point_b"]
+    total_w = custom_labels.loc[img_name,"point_c"] - custom_labels.loc[img_name,"point_a"]
+    position = np.array((mid_X/1000, mid_Y/1000, total_h/1000, total_w/1000))
+    enc_letter = np.zeros(36)
+    enc_letter[char_to_int[custom_labels.loc[img_name,"letter"]]] = 1
+    return X, (presence, position, enc_letter)
+
+
+
 def train_generator():
     while True:
+        if random.random() > SPIKE_IN_PROB:
+            yield retrieve_extra()
         if random.random() > TRUE_NEG_PRO:
             if random.random() > STITCH_PROB:
                 X, coords, letter, color = stitch_random_square(random.choice(list_of_grass_images))
@@ -72,13 +95,20 @@ def bg_parallel():
 
     [p.start() for p in p_list]
     for i in range(10000):
-        yield pqueue.get()
+        while True:
+            a = pqueue.get()
+            if type(a) == "tuple":
+                if a[0].shape == (1000,1000,3):
+                    break
+            print(a)
+        yield a
+        
     
 
 def retrieve_tf_dataset():
     tf_data = tf.data.Dataset.from_generator(bg_parallel, output_types = (tf.float32,(tf.float32,tf.float32,tf.float32)), output_shapes = ((1000,1000,3),((),(4),(36))))
 
-    tf_data = tf_data.map((lambda image ,Y: (tf.image.resize(image, (224, 224)), Y)), num_parallel_calls = 6)
+    tf_data = tf_data.map((lambda image ,Y: (tf.image.resize(image, (400, 400)), Y)), num_parallel_calls = 6)
     tf_data = tf_data.map((lambda image ,Y: (tf.image.random_contrast(image, 0.8, 1.2), Y)), num_parallel_calls = 6)
     tf_data = tf_data.map((lambda image ,Y: (tf.image.random_brightness(image, 40,), Y)), num_parallel_calls = 6)
     tf_data = tf_data.map((lambda image ,Y: (tf.image.random_saturation(image, 0.8, 1.2), Y)), num_parallel_calls = 6)

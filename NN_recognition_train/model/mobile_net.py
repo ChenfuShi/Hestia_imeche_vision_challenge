@@ -5,6 +5,8 @@ import pandas as pd
 import numpy as np
 import random
 
+from dataset.train_generator import retrieve_tf_dataset
+
 def custom_crossentropy(y_true,y_pred):
     y_pred_filtered = y_pred[~tf.math.is_nan(tf.reduce_sum(y_true,axis = 1))]
     y_true_filtered = y_true[~tf.math.is_nan(tf.reduce_sum(y_true,axis = 1))]
@@ -18,9 +20,7 @@ def custom_mse(y_true,y_pred):
     return loss
 
 def retrieve_mobilenet_model():
-    base_model = tf.keras.applications.MobileNetV2(input_shape=(224,224,3),
-                                               include_top=False,
-                                               weights='imagenet')
+    base_model = tf.keras.models.load_model('weights/test_mobilenet_resblocks.tf')
     base_model.trainable = False
     preprocess_input = tf.keras.applications.mobilenet_v2.preprocess_input
 
@@ -29,16 +29,34 @@ def retrieve_mobilenet_model():
     x = base_model(x)
     x = tf.keras.layers.GlobalAveragePooling2D()(x)
     x = tf.keras.layers.Flatten()(x)
-    x = tf.keras.layers.Dense(500, activation = None)(x)
-    x = tf.keras.activations.swish(x)
+    x = tf.keras.layers.Dense(500, activation = None, use_bias = False)(x)
+    x = tf.keras.layers.BatchNormalization(epsilon=1e-3,momentum=0.999)(x)
+    x = tf.keras.layers.ReLU(6.)(x)
     x = tf.keras.layers.Dropout(0.2)(x)
     presence = tf.keras.layers.Dense(1, activation = "sigmoid", name = "presence")(x)
     coordinates = tf.keras.layers.Dense(4, name = "coordinates")(x)
     letter = tf.keras.layers.Dense(36, activation = "sigmoid", name = "letter")(x)
     model = tf.keras.Model(inputs, [presence, coordinates, letter])
+    return model
+
+def train_this(model_name):
+
+    tf_data = retrieve_tf_dataset()
+
+    model = retrieve_mobilenet_model()
 
     model.compile(optimizer=tf.keras.optimizers.Adam(lr=0.0003),
                 loss={"presence":tf.keras.losses.binary_crossentropy, "coordinates":custom_mse, "letter":custom_crossentropy},
                 metrics={"presence":"accuracy",})
 
-    return model
+    model.fit(tf_data, epochs = 3, verbose = 2,)
+
+    model.trainable = True
+
+    model.compile(optimizer=tf.keras.optimizers.Adam(lr=0.00005),
+                loss={"presence":tf.keras.losses.binary_crossentropy, "coordinates":custom_mse, "letter":custom_crossentropy},
+                metrics={"presence":"accuracy",})
+
+    model.fit(tf_data, epochs = 5, verbose = 2,)
+    
+    model.save(f'weights/{model_name}.tf', save_format = "tf")
