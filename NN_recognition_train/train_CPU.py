@@ -9,10 +9,10 @@ from PIL import Image
 import argparse
 import sys
 
-from model.mobile_net import train_this
+from model.mobile_net_copy import train_this
 
-tf.config.threading.set_intra_op_parallelism_threads(16)
-tf.config.threading.set_inter_op_parallelism_threads(16)
+tf.config.threading.set_intra_op_parallelism_threads(14)
+tf.config.threading.set_inter_op_parallelism_threads(14)
 
 
 if __name__ == '__main__':

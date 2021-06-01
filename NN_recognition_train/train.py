@@ -11,8 +11,8 @@ import sys
 
 from model.mobile_net import train_this
 
-tf.config.threading.set_intra_op_parallelism_threads(10)
-tf.config.threading.set_inter_op_parallelism_threads(10)
+tf.config.threading.set_intra_op_parallelism_threads(8)
+tf.config.threading.set_inter_op_parallelism_threads(8)
 
 
 if __name__ == '__main__':

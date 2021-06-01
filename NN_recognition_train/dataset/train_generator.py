@@ -58,7 +58,7 @@ def retrieve_extra():
 
 def train_generator():
     while True:
-        if random.random() > SPIKE_IN_PROB:
+        if random.random() < SPIKE_IN_PROB:
             yield retrieve_extra()
         if random.random() > TRUE_NEG_PRO:
             if random.random() > STITCH_PROB:
@@ -91,7 +91,7 @@ def bg_parallel():
 
     pqueue = multiprocessing.Queue(maxsize=100)
 
-    p_list = [multiprocessing.Process(target=_bg_gen, args=(train_generator, pqueue)) for x in range(7)]
+    p_list = [multiprocessing.Process(target=_bg_gen, args=(train_generator, pqueue)) for x in range(6)]
 
     [p.start() for p in p_list]
     for i in range(10000):

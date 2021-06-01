@@ -1087,3 +1087,7 @@ Found 1281167 files belonging to 1000 classes.
 Using 64058 files for validation.
 Epoch 1/10
 38035/38035 - 35097s - loss: 5.0913 - accuracy: 0.0989 - top_k_categorical_accuracy: 0.0059 - val_loss: 4.4789 - val_accuracy: 0.1571 - val_top_k_categorical_accuracy: 0.0080
+Epoch 2/10
+38035/38035 - 34958s - loss: 4.2002 - accuracy: 0.1896 - top_k_categorical_accuracy: 0.0053 - val_loss: 4.2353 - val_accuracy: 0.1918 - val_top_k_categorical_accuracy: 0.0108
+Epoch 3/10
+38035/38035 - 34884s - loss: 3.8187 - accuracy: 0.2403 - top_k_categorical_accuracy: 0.0047 - val_loss: 4.1261 - val_accuracy: 0.2077 - val_top_k_categorical_accuracy: 0.0058
