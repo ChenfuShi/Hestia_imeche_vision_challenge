@@ -20,7 +20,7 @@ def custom_mse(y_true,y_pred):
     return loss
 
 def retrieve_mobilenet_model():
-    base_model = tf.keras.models.load_model('weights/test_mobilenet_resblocks.tf').layers[3]
+    base_model = tf.keras.models.load_model('weights/test_mobilenet_faster.tf').layers[3]
     base_model.trainable = False
     preprocess_input = tf.keras.applications.mobilenet_v2.preprocess_input
 
