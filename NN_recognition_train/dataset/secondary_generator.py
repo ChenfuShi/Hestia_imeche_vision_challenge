@@ -17,11 +17,14 @@ alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 char_to_int = dict((c, i) for i, c in enumerate(alphabet))
 int_to_char = dict((i, c) for i, c in enumerate(alphabet))
 
+BATCH_SIZE = 96
 
 list_of_grass_images = glob.glob(DATASET_DIR + "/*jpeg")
 list_of_negative_images = glob.glob(TRUE_NEGATIVES_DIR + "/*jpeg")
 
+##########################################
 model_to_use = "step1_without_trainable.tf"
+##########################################
 def custom_mse(y_true,y_pred):
     y_pred_filtered = y_pred[~tf.math.is_nan(tf.reduce_sum(y_true,axis = 1))]
     y_true_filtered = y_true[~tf.math.is_nan(tf.reduce_sum(y_true,axis = 1))]
@@ -32,15 +35,15 @@ model_step_1 = k.models.load_model(f"weights/{model_to_use}", custom_objects = {
 
 
 def generate_batch():
-    images = np.empty((32,1000,1000,3), dtype = np.float32)
-    enc_letter = np.zeros((32,36), dtype = np.float32)
-    enc_colour = np.zeros((32,3), dtype = np.float32)
+    images = np.empty((BATCH_SIZE,1000,1000,3), dtype = np.float32)
+    enc_letter = np.zeros((BATCH_SIZE,36), dtype = np.float32)
+    enc_colour = np.zeros((BATCH_SIZE,3), dtype = np.float32)
     i = 0
     with ProcessPoolExecutor(max_workers = 8) as executor:
-        for X, coords, letter, colour in executor.map(stitch_random_square, random.sample(list_of_grass_images,32)):
+        for X, coords, letter, colour in executor.map(stitch_random_square, random.sample(list_of_grass_images,BATCH_SIZE)):
             images[i] = X
             enc_letter[i, char_to_int[letter]] = 1
-            enc_colour[i] = np.array(colour)/255
+            enc_colour[i,:] = np.array(colour)/255
             i = i + 1
     return images, enc_letter, enc_colour
 
@@ -59,9 +62,9 @@ def secondary_generator():
     while True:
         X, enc_letter, enc_colour = generate_batch()
         
-        presence_pred, coords_pred = model_step_1.predict(tf.image.resize(X.reshape(32,1000,1000,3), (224, 224)))
-        cropped_images = np.empty((32,224,224,3), dtype = np.float32)
-        for i in range(32):
+        presence_pred, coords_pred = model_step_1(tf.image.resize(X.reshape(BATCH_SIZE,1000,1000,3), (224, 224)), training = True)
+        cropped_images = np.empty((BATCH_SIZE,224,224,3), dtype = np.float32)
+        for i in range(BATCH_SIZE):
             X0, X1, Y0, Y1 = sanitize(coords_pred[i])
             img = tf.image.resize(np.expand_dims(X[i, int(Y0*1000):int(Y1*1000)+1, int(X0*1000):int(X1*1000)+1, :], 0),(224,224))
             img = tf.image.random_contrast(img, 0.8, 1.2)
@@ -74,6 +77,6 @@ def secondary_generator():
 
 
 def retrieve_tf_dataset_secondary():
-    tf_data = tf.data.Dataset.from_generator(secondary_generator, output_types = (tf.float32,(tf.float32, tf.float32)), output_shapes = ((32,224,224,3),((32,36),(32,3))))
+    tf_data = tf.data.Dataset.from_generator(secondary_generator, output_types = (tf.float32,(tf.float32, tf.float32)), output_shapes = ((BATCH_SIZE,224,224,3),((BATCH_SIZE,36),(BATCH_SIZE,3))))
     tf_data = tf_data.prefetch(buffer_size = 3)
     return tf_data

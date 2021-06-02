@@ -1,0 +1,41 @@
+tools/gcc/git(41):ERROR:105: Unable to locate a modulefile for 'tools/gcc/git/2.8.2'
+              total        used        free      shared  buff/cache   available
+Mem:         128674        2828      116417        1006        9428      124227
+Swap:         16383          53       16330
+/opt/site/sge/default/spool/node645/job_scripts/2484114: line 14: nvidia-smi: command not found
+2021-06-02 13:58:10.564636: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.10.1
+2021-06-02 13:58:20.688060: I tensorflow/compiler/jit/xla_cpu_device.cc:41] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-06-02 13:58:20.688702: W tensorflow/stream_executor/platform/default/dso_loader.cc:60] Could not load dynamic library 'libcuda.so.1'; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory
+2021-06-02 13:58:20.688722: W tensorflow/stream_executor/cuda/cuda_driver.cc:326] failed call to cuInit: UNKNOWN ERROR (303)
+2021-06-02 13:58:20.688747: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (node645.pri.csf3.alces.network): /proc/driver/nvidia/version does not exist
+2021-06-02 13:58:20.689130: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  SSE4.1 SSE4.2 AVX AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-06-02 13:58:20.690934: I tensorflow/compiler/jit/xla_gpu_device.cc:99] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-06-02 13:58:21.742295: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:116] None of the MLIR optimization passes are enabled (registered 2)
+2021-06-02 13:58:21.742878: I tensorflow/core/platform/profile_utils/cpu_utils.cc:112] CPU Frequency: 2599720000 Hz
+WARNING:tensorflow:AutoGraph could not transform <function custom_mse at 0x2b01960558b0> and will run it as-is.
+Please report this to the TensorFlow team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output.
+Cause: module 'gast' has no attribute 'Index'
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+MODEL NAME = slightly_different_arc_normal-conv-end_step1
+Epoch 1/10
+300/300 - 1490s - loss: 0.9062 - presence_loss: 0.5386 - coordinates_loss: 0.3677 - presence_accuracy: 0.7076
+Epoch 2/10
+300/300 - 1481s - loss: 0.1623 - presence_loss: 0.1411 - coordinates_loss: 0.0213 - presence_accuracy: 0.9481
+Epoch 3/10
+300/300 - 1475s - loss: 0.1032 - presence_loss: 0.0910 - coordinates_loss: 0.0121 - presence_accuracy: 0.9700
+Epoch 4/10
+300/300 - 1466s - loss: 0.0744 - presence_loss: 0.0634 - coordinates_loss: 0.0110 - presence_accuracy: 0.9789
+Epoch 5/10
+300/300 - 1483s - loss: 0.0629 - presence_loss: 0.0550 - coordinates_loss: 0.0079 - presence_accuracy: 0.9822
+Epoch 6/10
+300/300 - 1363s - loss: 0.0595 - presence_loss: 0.0515 - coordinates_loss: 0.0080 - presence_accuracy: 0.9825
+Epoch 7/10
+300/300 - 1300s - loss: 0.0520 - presence_loss: 0.0464 - coordinates_loss: 0.0056 - presence_accuracy: 0.9852
+Epoch 8/10
+300/300 - 1305s - loss: 0.0537 - presence_loss: 0.0484 - coordinates_loss: 0.0053 - presence_accuracy: 0.9851
+Epoch 9/10
+300/300 - 1307s - loss: 0.0484 - presence_loss: 0.0430 - coordinates_loss: 0.0054 - presence_accuracy: 0.9856
+Epoch 10/10
+300/300 - 1318s - loss: 0.0499 - presence_loss: 0.0425 - coordinates_loss: 0.0074 - presence_accuracy: 0.9872
+2021-06-02 17:51:33.370808: W tensorflow/python/util/util.cc:348] Sets are not currently considered sequences, but this may change in the future, so consider avoiding using them.

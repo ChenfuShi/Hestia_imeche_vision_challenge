@@ -97,3 +97,6 @@ Epoch 3/5
 38035/38035 - 8853s - loss: 3.6124 - accuracy: 0.2562 - top_k_categorical_accuracy: 0.0048 - val_loss: 3.8116 - val_accuracy: 0.2460 - val_top_k_categorical_accuracy: 0.0019
 Epoch 4/5
 38035/38035 - 8842s - loss: 3.4121 - accuracy: 0.2856 - top_k_categorical_accuracy: 0.0047 - val_loss: 3.6011 - val_accuracy: 0.2715 - val_top_k_categorical_accuracy: 0.0016
+Epoch 5/5
+38035/38035 - 8849s - loss: 3.2711 - accuracy: 0.3070 - top_k_categorical_accuracy: 0.0044 - val_loss: 3.5118 - val_accuracy: 0.2873 - val_top_k_categorical_accuracy: 0.0017
+2021-06-02 15:28:19.244612: W tensorflow/python/util/util.cc:348] Sets are not currently considered sequences, but this may change in the future, so consider avoiding using them.

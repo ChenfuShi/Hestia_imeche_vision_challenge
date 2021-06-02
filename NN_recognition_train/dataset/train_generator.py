@@ -114,5 +114,5 @@ def retrieve_tf_dataset():
     tf_data = tf_data.map((lambda image ,Y: (tf.image.random_saturation(image, 0.8, 1.2), Y)), num_parallel_calls = 6)
     tf_data = tf_data.map((lambda image ,Y: (tf.image.random_hue(image, 0.05), Y)), num_parallel_calls = 6)
     tf_data = tf_data.prefetch(buffer_size = 200)
-    tf_data = tf_data.batch(32)
+    tf_data = tf_data.batch(96)
     return tf_data

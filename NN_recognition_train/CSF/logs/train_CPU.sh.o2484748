@@ -1,0 +1,16 @@
+tools/gcc/git(41):ERROR:105: Unable to locate a modulefile for 'tools/gcc/git/2.8.2'
+              total        used        free      shared  buff/cache   available
+Mem:         191926        2956      182445         258        6525      187978
+Swap:         16383        1013       15370
+/opt/site/sge/default/spool/node922/job_scripts/2484748: line 14: nvidia-smi: command not found
+2021-06-02 23:30:11.808667: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.10.1
+2021-06-02 23:30:34.791746: I tensorflow/compiler/jit/xla_cpu_device.cc:41] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-06-02 23:30:34.803438: W tensorflow/stream_executor/platform/default/dso_loader.cc:60] Could not load dynamic library 'libcuda.so.1'; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory
+2021-06-02 23:30:34.803467: W tensorflow/stream_executor/cuda/cuda_driver.cc:326] failed call to cuInit: UNKNOWN ERROR (303)
+2021-06-02 23:30:34.803500: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (node922.pri.csf3.alces.network): /proc/driver/nvidia/version does not exist
+2021-06-02 23:30:34.813023: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  SSE4.1 SSE4.2 AVX AVX2 AVX512F FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-06-02 23:30:34.814523: I tensorflow/compiler/jit/xla_gpu_device.cc:99] Not creating XLA devices, tf_xla_enable_xla_devices not set
+WARNING:tensorflow:`period` argument is deprecated. Please use `save_freq` to specify the frequency in number of batches seen.
+2021-06-02 23:30:35.783246: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:116] None of the MLIR optimization passes are enabled (registered 2)
+2021-06-02 23:30:35.783945: I tensorflow/core/platform/profile_utils/cpu_utils.cc:112] CPU Frequency: 2100000000 Hz

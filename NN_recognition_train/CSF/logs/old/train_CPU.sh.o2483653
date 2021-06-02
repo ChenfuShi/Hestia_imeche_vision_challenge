@@ -1,0 +1,26 @@
+tools/gcc/git(41):ERROR:105: Unable to locate a modulefile for 'tools/gcc/git/2.8.2'
+              total        used        free      shared  buff/cache   available
+Mem:         128677       11409      112748         750        4518      115905
+Swap:         16383         549       15834
+/opt/site/sge/default/spool/node765/job_scripts/2483653: line 14: nvidia-smi: command not found
+2021-06-02 09:48:50.256792: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.10.1
+2021-06-02 09:49:09.555585: I tensorflow/compiler/jit/xla_cpu_device.cc:41] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-06-02 09:49:09.560187: W tensorflow/stream_executor/platform/default/dso_loader.cc:60] Could not load dynamic library 'libcuda.so.1'; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory
+2021-06-02 09:49:09.560208: W tensorflow/stream_executor/cuda/cuda_driver.cc:326] failed call to cuInit: UNKNOWN ERROR (303)
+2021-06-02 09:49:09.560234: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (node765.pri.csf3.alces.network): /proc/driver/nvidia/version does not exist
+2021-06-02 09:49:09.565431: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  SSE4.1 SSE4.2 AVX AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-06-02 09:49:09.566541: I tensorflow/compiler/jit/xla_gpu_device.cc:99] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-06-02 09:49:10.385398: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:116] None of the MLIR optimization passes are enabled (registered 2)
+2021-06-02 09:49:10.385890: I tensorflow/core/platform/profile_utils/cpu_utils.cc:112] CPU Frequency: 2400110000 Hz
+WARNING:tensorflow:AutoGraph could not transform <function custom_mse at 0x2af8b7e82940> and will run it as-is.
+Please report this to the TensorFlow team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output.
+Cause: module 'gast' has no attribute 'Index'
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+MODEL NAME = step1_no_batchnorm
+Epoch 1/10
+316/316 - 1035s - loss: 0.7212 - presence_loss: 0.6796 - coordinates_loss: 0.0416 - presence_accuracy: 0.5886
+WARNING:tensorflow:Your input ran out of data; interrupting training. Make sure that your dataset or generator can generate at least `steps_per_epoch * epochs` batches (in this case, 3160 batches). You may need to use the repeat() function when building your dataset.
+Epoch 2/10
+316/316 - 998s - loss: 0.7090 - presence_loss: 0.6746 - coordinates_loss: 0.0344 - presence_accuracy: 0.5989
+2021-06-02 10:23:05.605538: W tensorflow/python/util/util.cc:348] Sets are not currently considered sequences, but this may change in the future, so consider avoiding using them.
