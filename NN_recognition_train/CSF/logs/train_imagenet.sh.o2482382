@@ -1,0 +1,99 @@
+tools/gcc/git(41):ERROR:105: Unable to locate a modulefile for 'tools/gcc/git/2.8.2'
+              total        used        free      shared  buff/cache   available
+Mem:         191862       18426       64287         415      109148      172287
+Swap:          8191         696        7495
+Tue Jun  1 17:59:45 2021       
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 460.32.03    Driver Version: 460.32.03    CUDA Version: 11.2     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                               |                      |               MIG M. |
+|===============================+======================+======================|
+|   0  Tesla V100-SXM2...  Off  | 00000000:1A:00.0 Off |                    0 |
+| N/A   63C    P0   177W / 300W |   1508MiB / 16160MiB |     83%   E. Process |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+|   1  Tesla V100-SXM2...  Off  | 00000000:1C:00.0 Off |                    0 |
+| N/A   38C    P0    68W / 300W |   5798MiB / 16160MiB |     47%   E. Process |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+|   2  Tesla V100-SXM2...  Off  | 00000000:1D:00.0 Off |                    0 |
+| N/A   39C    P0    56W / 300W |      0MiB / 16160MiB |      0%   E. Process |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+|   3  Tesla V100-SXM2...  Off  | 00000000:1E:00.0 Off |                    0 |
+| N/A   35C    P0    42W / 300W |      3MiB / 16160MiB |      0%   E. Process |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+                                                                               
++-----------------------------------------------------------------------------+
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
+|=============================================================================|
+|    0   N/A  N/A    121220      C   pmemd.cuda                       1505MiB |
+|    1   N/A  N/A     92390      C   python                           5795MiB |
++-----------------------------------------------------------------------------+
+rm: cannot remove ‘/mnt/iusers01/jw01/mdefscs4/localscratch/imagenet_cache.tfdata’: No such file or directory
+2021-06-02 03:02:46.413082: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.10.1
+2021-06-02 03:04:30.571225: I tensorflow/compiler/jit/xla_cpu_device.cc:41] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-06-02 03:04:30.584403: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcuda.so.1
+2021-06-02 03:04:32.927948: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1720] Found device 0 with properties: 
+pciBusID: 0000:1d:00.0 name: Tesla V100-SXM2-16GB computeCapability: 7.0
+coreClock: 1.53GHz coreCount: 80 deviceMemorySize: 15.78GiB deviceMemoryBandwidth: 836.37GiB/s
+2021-06-02 03:04:32.928026: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.10.1
+2021-06-02 03:04:33.608915: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublas.so.10
+2021-06-02 03:04:33.609056: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublasLt.so.10
+2021-06-02 03:04:34.000252: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcufft.so.10
+2021-06-02 03:04:34.103045: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcurand.so.10
+2021-06-02 03:04:34.798607: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcusolver.so.10
+2021-06-02 03:04:34.932006: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcusparse.so.10
+2021-06-02 03:04:36.272133: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudnn.so.7
+2021-06-02 03:04:36.276423: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1862] Adding visible gpu devices: 0
+2021-06-02 03:04:36.299612: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  SSE4.1 SSE4.2 AVX AVX2 AVX512F FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-06-02 03:04:36.302193: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1720] Found device 0 with properties: 
+pciBusID: 0000:1d:00.0 name: Tesla V100-SXM2-16GB computeCapability: 7.0
+coreClock: 1.53GHz coreCount: 80 deviceMemorySize: 15.78GiB deviceMemoryBandwidth: 836.37GiB/s
+2021-06-02 03:04:36.302243: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.10.1
+2021-06-02 03:04:36.302297: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublas.so.10
+2021-06-02 03:04:36.302322: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublasLt.so.10
+2021-06-02 03:04:36.302347: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcufft.so.10
+2021-06-02 03:04:36.302371: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcurand.so.10
+2021-06-02 03:04:36.302406: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcusolver.so.10
+2021-06-02 03:04:36.302431: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcusparse.so.10
+2021-06-02 03:04:36.302455: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudnn.so.7
+2021-06-02 03:04:36.305642: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1862] Adding visible gpu devices: 0
+2021-06-02 03:04:36.325286: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.10.1
+2021-06-02 03:04:47.392929: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1261] Device interconnect StreamExecutor with strength 1 edge matrix:
+2021-06-02 03:04:47.393996: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1267]      0 
+2021-06-02 03:04:47.394028: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1280] 0:   N 
+2021-06-02 03:04:47.421616: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1406] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 14761 MB memory) -> physical GPU (device: 0, name: Tesla V100-SXM2-16GB, pci bus id: 0000:1d:00.0, compute capability: 7.0)
+2021-06-02 03:04:47.432519: I tensorflow/compiler/jit/xla_gpu_device.cc:99] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-06-02 03:05:31.115475: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:116] None of the MLIR optimization passes are enabled (registered 2)
+2021-06-02 03:05:31.116410: I tensorflow/core/platform/profile_utils/cpu_utils.cc:112] CPU Frequency: 2100000000 Hz
+2021-06-02 03:05:34.381752: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublas.so.10
+2021-06-02 03:05:37.615111: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudnn.so.7
+2021-06-02 03:05:49.141147: W tensorflow/stream_executor/gpu/asm_compiler.cc:63] Running ptxas --version returned 256
+2021-06-02 03:05:49.383235: W tensorflow/stream_executor/gpu/redzone_allocator.cc:314] Internal: ptxas exited with non-zero error code 256, output: 
+Relying on driver to perform ptx compilation. 
+Modify $PATH to customize ptxas location.
+This message will be only logged once.
+2021-06-02 03:19:44.190016: W tensorflow/core/framework/cpu_allocator_impl.cc:80] Allocation of 66948528 exceeds 10% of free system memory.
+2021-06-02 03:34:18.208528: W tensorflow/core/framework/cpu_allocator_impl.cc:80] Allocation of 72644400 exceeds 10% of free system memory.
+2021-06-02 03:34:52.622822: W tensorflow/core/framework/cpu_allocator_impl.cc:80] Allocation of 58925265 exceeds 10% of free system memory.
+2021-06-02 03:52:29.525368: W tensorflow/core/framework/cpu_allocator_impl.cc:80] Allocation of 66729285 exceeds 10% of free system memory.
+2021-06-02 03:55:35.146485: W tensorflow/core/framework/cpu_allocator_impl.cc:80] Allocation of 68036088 exceeds 10% of free system memory.
+Found 1281167 files belonging to 1000 classes.
+Using 1217109 files for training.
+Found 1281167 files belonging to 1000 classes.
+Using 64058 files for validation.
+Epoch 1/5
+38035/38035 - 9191s - loss: 4.8857 - accuracy: 0.1128 - top_k_categorical_accuracy: 0.0058 - val_loss: 5.2198 - val_accuracy: 0.1344 - val_top_k_categorical_accuracy: 0.0014
+Epoch 2/5
+38035/38035 - 8827s - loss: 3.9482 - accuracy: 0.2104 - top_k_categorical_accuracy: 0.0051 - val_loss: 4.1597 - val_accuracy: 0.2070 - val_top_k_categorical_accuracy: 0.0033
+Epoch 3/5
+38035/38035 - 8853s - loss: 3.6124 - accuracy: 0.2562 - top_k_categorical_accuracy: 0.0048 - val_loss: 3.8116 - val_accuracy: 0.2460 - val_top_k_categorical_accuracy: 0.0019
+Epoch 4/5
+38035/38035 - 8842s - loss: 3.4121 - accuracy: 0.2856 - top_k_categorical_accuracy: 0.0047 - val_loss: 3.6011 - val_accuracy: 0.2715 - val_top_k_categorical_accuracy: 0.0016

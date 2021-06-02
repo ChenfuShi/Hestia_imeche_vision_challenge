@@ -1,0 +1,47 @@
+tools/gcc/git(41):ERROR:105: Unable to locate a modulefile for 'tools/gcc/git/2.8.2'
+              total        used        free      shared  buff/cache   available
+Mem:          64215        1869       58291         268        4053       61591
+Swap:         16383         866       15517
+/opt/site/sge/default/spool/node526/job_scripts/2481488: line 14: nvidia-smi: command not found
+2021-05-31 23:05:48.545392: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.10.1
+2021-05-31 23:06:06.666076: I tensorflow/compiler/jit/xla_cpu_device.cc:41] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-05-31 23:06:06.670582: W tensorflow/stream_executor/platform/default/dso_loader.cc:60] Could not load dynamic library 'libcuda.so.1'; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory
+2021-05-31 23:06:06.670606: W tensorflow/stream_executor/cuda/cuda_driver.cc:326] failed call to cuInit: UNKNOWN ERROR (303)
+2021-05-31 23:06:06.670635: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (node526.pri.csf3.alces.network): /proc/driver/nvidia/version does not exist
+2021-05-31 23:06:06.675195: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  SSE4.1 SSE4.2 AVX
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-05-31 23:06:06.676251: I tensorflow/compiler/jit/xla_gpu_device.cc:99] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-05-31 23:06:13.517959: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:116] None of the MLIR optimization passes are enabled (registered 2)
+2021-05-31 23:06:13.519244: I tensorflow/core/platform/profile_utils/cpu_utils.cc:112] CPU Frequency: 2599985000 Hz
+WARNING:tensorflow:AutoGraph could not transform <function custom_mse at 0x2ab63f8e39d0> and will run it as-is.
+Please report this to the TensorFlow team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output.
+Cause: module 'gast' has no attribute 'Index'
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+MODEL NAME = optimized_for_non_pretrained
+Epoch 1/15
+WARNING:tensorflow:AutoGraph could not transform <function custom_crossentropy at 0x2ab6309741f0> and will run it as-is.
+Please report this to the TensorFlow team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output.
+Cause: module 'gast' has no attribute 'Index'
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+313/313 - 1739s - loss: 4.2821 - presence_loss: 0.5887 - coordinates_loss: 0.0561 - letter_loss: 3.6374 - presence_accuracy: 0.6568
+Epoch 2/15
+313/313 - 1825s - loss: 3.8315 - presence_loss: 0.2001 - coordinates_loss: 0.0322 - letter_loss: 3.5992 - presence_accuracy: 0.9290
+Epoch 3/15
+313/313 - 1847s - loss: 3.7432 - presence_loss: 0.1258 - coordinates_loss: 0.0277 - letter_loss: 3.5897 - presence_accuracy: 0.9585
+Epoch 4/15
+313/313 - 1879s - loss: 3.7161 - presence_loss: 0.1004 - coordinates_loss: 0.0257 - letter_loss: 3.5900 - presence_accuracy: 0.9666
+Epoch 5/15
+313/313 - 1872s - loss: 3.6980 - presence_loss: 0.0886 - coordinates_loss: 0.0240 - letter_loss: 3.5854 - presence_accuracy: 0.9716
+Epoch 6/15
+313/313 - 1878s - loss: 3.6859 - presence_loss: 0.0747 - coordinates_loss: 0.0219 - letter_loss: 3.5893 - presence_accuracy: 0.9743
+Epoch 7/15
+313/313 - 1880s - loss: 3.6804 - presence_loss: 0.0719 - coordinates_loss: 0.0206 - letter_loss: 3.5879 - presence_accuracy: 0.9776
+Epoch 8/15
+313/313 - 1870s - loss: 3.6611 - presence_loss: 0.0555 - coordinates_loss: 0.0167 - letter_loss: 3.5889 - presence_accuracy: 0.9821
+Epoch 9/15
+313/313 - 1875s - loss: 3.6680 - presence_loss: 0.0667 - coordinates_loss: 0.0163 - letter_loss: 3.5850 - presence_accuracy: 0.9784
+Epoch 10/15
+313/313 - 1876s - loss: 3.6640 - presence_loss: 0.0620 - coordinates_loss: 0.0157 - letter_loss: 3.5863 - presence_accuracy: 0.9780
+Epoch 11/15
+313/313 - 1871s - loss: 3.6492 - presence_loss: 0.0513 - coordinates_loss: 0.0151 - letter_loss: 3.5829 - presence_accuracy: 0.9828
+Epoch 12/15

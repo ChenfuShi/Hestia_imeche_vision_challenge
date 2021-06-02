@@ -7,6 +7,8 @@ import random
 
 from dataset.train_generator import retrieve_tf_dataset
 
+IMAGE_SIZE = 224
+
 def custom_crossentropy(y_true,y_pred):
     y_pred_filtered = y_pred[~tf.math.is_nan(tf.reduce_sum(y_true,axis = 1))]
     y_true_filtered = y_true[~tf.math.is_nan(tf.reduce_sum(y_true,axis = 1))]
@@ -19,24 +21,62 @@ def custom_mse(y_true,y_pred):
     loss = tf.reduce_mean(tf.math.square(y_true_filtered - y_pred_filtered))
     return loss
 
+def _inverted_res_block(inputs, filters, expansion, stride,):
+    x = inputs
+    # expand
+    x = tf.keras.layers.Conv2D(filters * expansion, kernel_size=1, padding='same', activation=None, use_bias=False)(x)
+    x = tf.keras.layers.BatchNormalization(epsilon=1e-3,momentum=0.999)(x)
+    x = tf.keras.layers.ReLU(6.)(x)
+    # depthwise conv
+    x = tf.keras.layers.DepthwiseConv2D(kernel_size=3, strides = stride, padding='same', activation=None, use_bias=False)(x)
+    x = tf.keras.layers.BatchNormalization(epsilon=1e-3,momentum=0.999)(x)
+    x = tf.keras.layers.ReLU(6.)(x)
+    # project
+    x = tf.keras.layers.Conv2D(filters, kernel_size=1, padding='same', activation=None, use_bias=False)(x)
+    x = tf.keras.layers.BatchNormalization(epsilon=1e-3,momentum=0.999)(x)
+    if stride == 1:
+        x = tf.keras.layers.Add()([inputs, x])
+        return x
+    else:
+        return x
+
+def model_to_train():
+    inputs = tf.keras.Input(shape=(IMAGE_SIZE, IMAGE_SIZE, 3))
+    x = tf.keras.layers.Conv2D(10, kernel_size=3, padding='same', activation=None, use_bias=False)(inputs)
+    x = tf.keras.layers.BatchNormalization(epsilon=1e-3,momentum=0.999)(x)
+    x = tf.keras.layers.ReLU(6.)(x)
+    x = _inverted_res_block(x, filters=20, expansion=3, stride=2,)
+    x = _inverted_res_block(x, filters=20, expansion=6, stride=1,)
+    x = _inverted_res_block(x, filters=40, expansion=6, stride=2,)
+    x = _inverted_res_block(x, filters=40, expansion=6, stride=1,)
+    x = _inverted_res_block(x, filters=40, expansion=6, stride=1,)
+    x = _inverted_res_block(x, filters=80, expansion=6, stride=2,)
+    x = _inverted_res_block(x, filters=80, expansion=6, stride=1,)
+    x = _inverted_res_block(x, filters=80, expansion=6, stride=1,)
+    x = _inverted_res_block(x, filters=6, expansion=6, stride=2,)
+    x = _inverted_res_block(x, filters=6, expansion=6, stride=1,)
+    # x = tf.keras.layers.BatchNormalization(epsilon=1e-3,momentum=0.999)(x) # because last block ends with a batchnorm
+    x = tf.keras.layers.ReLU(6.)(x)
+
+    model = tf.keras.Model(inputs, x)
+
+    return model
+
 def retrieve_mobilenet_model():
-    base_model = tf.keras.models.load_model('weights/test_mobilenet_faster.tf').layers[3]
-    base_model.trainable = False
+    base_model = model_to_train()
     preprocess_input = tf.keras.applications.mobilenet_v2.preprocess_input
 
-    inputs = tf.keras.Input(shape=(400, 400, 3))
+    inputs = tf.keras.Input(shape=(IMAGE_SIZE, IMAGE_SIZE, 3))
     x = preprocess_input(inputs)
     x = base_model(x)
-    x = tf.keras.layers.GlobalAveragePooling2D()(x)
     x = tf.keras.layers.Flatten()(x)
     x = tf.keras.layers.Dense(500, activation = None, use_bias = False)(x)
     x = tf.keras.layers.BatchNormalization(epsilon=1e-3,momentum=0.999)(x)
     x = tf.keras.layers.ReLU(6.)(x)
-    x = tf.keras.layers.Dropout(0.2)(x)
+    # x = tf.keras.layers.Dropout(0.2)(x)
     presence = tf.keras.layers.Dense(1, activation = "sigmoid", name = "presence")(x)
     coordinates = tf.keras.layers.Dense(4, name = "coordinates")(x)
-    letter = tf.keras.layers.Dense(36, activation = "sigmoid", name = "letter")(x)
-    model = tf.keras.Model(inputs, [presence, coordinates, letter])
+    model = tf.keras.Model(inputs, [presence, coordinates])
     return model
 
 def train_this(model_name):
@@ -45,18 +85,10 @@ def train_this(model_name):
 
     model = retrieve_mobilenet_model()
 
-    model.compile(optimizer=tf.keras.optimizers.Adam(lr=0.0003),
-                loss={"presence":tf.keras.losses.binary_crossentropy, "coordinates":custom_mse, "letter":custom_crossentropy},
+    model.compile(optimizer=tf.keras.optimizers.Adam(lr=0.005),
+                loss={"presence":tf.keras.losses.binary_crossentropy, "coordinates":custom_mse},
                 metrics={"presence":"accuracy",})
 
-    model.fit(tf_data, epochs = 3, verbose = 2,)
-
-    model.trainable = True
-
-    model.compile(optimizer=tf.keras.optimizers.Adam(lr=0.00005),
-                loss={"presence":tf.keras.losses.binary_crossentropy, "coordinates":custom_mse, "letter":custom_crossentropy},
-                metrics={"presence":"accuracy",})
-
-    model.fit(tf_data, epochs = 5, verbose = 2,)
+    model.fit(tf_data, epochs = 10, verbose = 2, steps_per_epoch = 300)
     
     model.save(f'weights/{model_name}.tf', save_format = "tf")

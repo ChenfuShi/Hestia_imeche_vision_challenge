@@ -52,7 +52,7 @@ def retrieve_extra():
     position = np.array((mid_X/1000, mid_Y/1000, total_h/1000, total_w/1000))
     enc_letter = np.zeros(36)
     enc_letter[char_to_int[custom_labels.loc[img_name,"letter"]]] = 1
-    return X, (presence, position, enc_letter)
+    return X, (presence, position)
 
 
 
@@ -62,7 +62,7 @@ def train_generator():
             yield retrieve_extra()
         if random.random() > TRUE_NEG_PRO:
             if random.random() > STITCH_PROB:
-                X, coords, letter, color = stitch_random_square(random.choice(list_of_grass_images))
+                X, coords, letter, colour = stitch_random_square(random.choice(list_of_grass_images))
                 presence = 1
                 position = align_coords(coords)
                 enc_letter = np.zeros(36)
@@ -80,7 +80,7 @@ def train_generator():
             position = np.full(4, np.nan)
             enc_letter = np.full(36, np.nan)
         # preprocess input for imagenet style
-        yield X, (presence, position, enc_letter)
+        yield X, (presence, position)
 
 def bg_parallel():
     def _bg_gen(gen, queue):
@@ -106,9 +106,9 @@ def bg_parallel():
     
 
 def retrieve_tf_dataset():
-    tf_data = tf.data.Dataset.from_generator(bg_parallel, output_types = (tf.float32,(tf.float32,tf.float32,tf.float32)), output_shapes = ((1000,1000,3),((),(4),(36))))
+    tf_data = tf.data.Dataset.from_generator(train_generator, output_types = (tf.float32,(tf.float32,tf.float32)), output_shapes = ((1000,1000,3),((),(4),)))
 
-    tf_data = tf_data.map((lambda image ,Y: (tf.image.resize(image, (400, 400)), Y)), num_parallel_calls = 6)
+    tf_data = tf_data.map((lambda image ,Y: (tf.image.resize(image, (224, 224)), Y)), num_parallel_calls = 6)
     tf_data = tf_data.map((lambda image ,Y: (tf.image.random_contrast(image, 0.8, 1.2), Y)), num_parallel_calls = 6)
     tf_data = tf_data.map((lambda image ,Y: (tf.image.random_brightness(image, 40,), Y)), num_parallel_calls = 6)
     tf_data = tf_data.map((lambda image ,Y: (tf.image.random_saturation(image, 0.8, 1.2), Y)), num_parallel_calls = 6)

@@ -1,0 +1,6 @@
+tools/gcc/git(41):ERROR:105: Unable to locate a modulefile for 'tools/gcc/git/2.8.2'
+              total        used        free      shared  buff/cache   available
+Mem:         128674        1469      125035          59        2170      126589
+Swap:         16383           0       16383
+/opt/site/sge/default/spool/node688/job_scripts/2483652: line 14: nvidia-smi: command not found
+2021-06-02 09:48:44.716314: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.10.1
