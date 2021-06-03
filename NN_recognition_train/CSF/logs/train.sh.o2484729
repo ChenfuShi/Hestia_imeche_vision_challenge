@@ -88,3 +88,6 @@ This message will be only logged once.
 300/300 - 1111s - loss: 1.1015 - presence_loss: 0.6521 - coordinates_loss: 0.4494 - presence_accuracy: 0.6473
 Epoch 2/10
 300/300 - 940s - loss: 0.4874 - presence_loss: 0.2832 - coordinates_loss: 0.2043 - presence_accuracy: 0.8971
+Epoch 3/10
+300/300 - 895s - loss: 0.3416 - presence_loss: 0.2705 - coordinates_loss: 0.0711 - presence_accuracy: 0.8982
+/opt/site/sge/default/spool/node809/job_scripts/2484729: line 23: 216152 Segmentation fault      python train.py ${model_name}

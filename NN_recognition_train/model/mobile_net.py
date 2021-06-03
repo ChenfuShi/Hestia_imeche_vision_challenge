@@ -63,16 +63,23 @@ def model_to_train():
     return model
 
 def retrieve_mobilenet_model():
-    base_model = model_to_train()
     preprocess_input = tf.keras.applications.mobilenet_v2.preprocess_input
 
     inputs = tf.keras.Input(shape=(IMAGE_SIZE, IMAGE_SIZE, 3))
     x = preprocess_input(inputs)
-    x = base_model(x)
-    x = tf.keras.layers.Flatten()(x)
-    x = tf.keras.layers.Dense(500, activation = None, use_bias = True)(x)
-    x = tf.keras.layers.ReLU(6.)(x)
-    x = tf.keras.layers.BatchNormalization(epsilon=1e-3,momentum=0.999)(x)
+    x = tf.keras.layers.Conv2D(12, strides = 2, kernel_size=3, padding='same', activation="relu", use_bias=True)(x)
+    x = tf.keras.layers.BatchNormalization()(x)
+    x = tf.keras.layers.Conv2D(24, strides = 2, kernel_size=3, padding='same', activation="relu", use_bias=True)(x)
+    x = tf.keras.layers.BatchNormalization()(x)
+    x = tf.keras.layers.Conv2D(48, strides = 2, kernel_size=3, padding='same', activation="relu", use_bias=True)(x)
+    x = tf.keras.layers.BatchNormalization()(x)
+    x = tf.keras.layers.Conv2D(96, strides = 2, kernel_size=3, padding='same', activation="relu", use_bias=True)(x)
+    x = tf.keras.layers.BatchNormalization()(x)
+    x = tf.keras.layers.Conv2D(128, strides = 2, kernel_size=3, padding='same', activation="relu", use_bias=True)(x)
+    x = tf.keras.layers.BatchNormalization()(x)
+    x = tf.keras.layers.GlobalAveragePooling2D()(x) 
+    x = tf.keras.layers.Dense(500, activation = "relu", use_bias = True)(x)
+    x = tf.keras.layers.BatchNormalization()(x)
     # x = tf.keras.layers.Dropout(0.2)(x)
     presence = tf.keras.layers.Dense(1, activation = "sigmoid", name = "presence")(x)
     coordinates = tf.keras.layers.Dense(4, name = "coordinates")(x)
@@ -80,7 +87,7 @@ def retrieve_mobilenet_model():
     return model
 
 def train_this(model_name):
-
+    
     tf_data = retrieve_tf_dataset()
 
     model = retrieve_mobilenet_model()
@@ -88,7 +95,7 @@ def train_this(model_name):
     model.compile(optimizer=tf.keras.optimizers.Adam(lr=0.005),
                 loss={"presence":tf.keras.losses.binary_crossentropy, "coordinates":custom_mse},
                 metrics={"presence":"accuracy",})
-
+    model.summary()
     checkpoint = tf.keras.callbacks.ModelCheckpoint(f'weights/{model_name}_epoch_5.tf', period=5) 
     model.fit(tf_data, epochs = 10, verbose = 2, steps_per_epoch = 100, callbacks=[checkpoint])
     

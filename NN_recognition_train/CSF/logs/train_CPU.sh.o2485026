@@ -1,0 +1,76 @@
+tools/gcc/git(41):ERROR:105: Unable to locate a modulefile for 'tools/gcc/git/2.8.2'
+              total        used        free      shared  buff/cache   available
+Mem:         128677        1670      124884          76        2121      126318
+Swap:         16383        1361       15022
+/opt/site/sge/default/spool/node781/job_scripts/2485026: line 14: nvidia-smi: command not found
+2021-06-03 09:33:39.443204: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.10.1
+2021-06-03 09:34:41.458196: I tensorflow/compiler/jit/xla_cpu_device.cc:41] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-06-03 09:34:41.465634: W tensorflow/stream_executor/platform/default/dso_loader.cc:60] Could not load dynamic library 'libcuda.so.1'; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory
+2021-06-03 09:34:41.465666: W tensorflow/stream_executor/cuda/cuda_driver.cc:326] failed call to cuInit: UNKNOWN ERROR (303)
+2021-06-03 09:34:41.465702: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (node781.pri.csf3.alces.network): /proc/driver/nvidia/version does not exist
+2021-06-03 09:34:41.482181: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  SSE4.1 SSE4.2 AVX AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-06-03 09:34:41.483627: I tensorflow/compiler/jit/xla_gpu_device.cc:99] Not creating XLA devices, tf_xla_enable_xla_devices not set
+WARNING:tensorflow:`period` argument is deprecated. Please use `save_freq` to specify the frequency in number of batches seen.
+2021-06-03 09:34:42.366911: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:116] None of the MLIR optimization passes are enabled (registered 2)
+2021-06-03 09:34:42.367858: I tensorflow/core/platform/profile_utils/cpu_utils.cc:112] CPU Frequency: 2399985000 Hz
+WARNING:tensorflow:AutoGraph could not transform <function custom_mse at 0x2ae481ebe940> and will run it as-is.
+Please report this to the TensorFlow team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output.
+Cause: module 'gast' has no attribute 'Index'
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+MODEL NAME = step1_really_basic_GAP
+Model: "model"
+__________________________________________________________________________________________________
+Layer (type)                    Output Shape         Param #     Connected to                     
+==================================================================================================
+input_1 (InputLayer)            [(None, 224, 224, 3) 0                                            
+__________________________________________________________________________________________________
+tf.math.truediv (TFOpLambda)    (None, 224, 224, 3)  0           input_1[0][0]                    
+__________________________________________________________________________________________________
+tf.math.subtract (TFOpLambda)   (None, 224, 224, 3)  0           tf.math.truediv[0][0]            
+__________________________________________________________________________________________________
+conv2d (Conv2D)                 (None, 112, 112, 12) 336         tf.math.subtract[0][0]           
+__________________________________________________________________________________________________
+batch_normalization (BatchNorma (None, 112, 112, 12) 48          conv2d[0][0]                     
+__________________________________________________________________________________________________
+conv2d_1 (Conv2D)               (None, 56, 56, 24)   2616        batch_normalization[0][0]        
+__________________________________________________________________________________________________
+batch_normalization_1 (BatchNor (None, 56, 56, 24)   96          conv2d_1[0][0]                   
+__________________________________________________________________________________________________
+conv2d_2 (Conv2D)               (None, 28, 28, 48)   10416       batch_normalization_1[0][0]      
+__________________________________________________________________________________________________
+batch_normalization_2 (BatchNor (None, 28, 28, 48)   192         conv2d_2[0][0]                   
+__________________________________________________________________________________________________
+conv2d_3 (Conv2D)               (None, 14, 14, 96)   41568       batch_normalization_2[0][0]      
+__________________________________________________________________________________________________
+batch_normalization_3 (BatchNor (None, 14, 14, 96)   384         conv2d_3[0][0]                   
+__________________________________________________________________________________________________
+conv2d_4 (Conv2D)               (None, 7, 7, 128)    110720      batch_normalization_3[0][0]      
+__________________________________________________________________________________________________
+batch_normalization_4 (BatchNor (None, 7, 7, 128)    512         conv2d_4[0][0]                   
+__________________________________________________________________________________________________
+global_average_pooling2d (Globa (None, 128)          0           batch_normalization_4[0][0]      
+__________________________________________________________________________________________________
+dense (Dense)                   (None, 500)          64500       global_average_pooling2d[0][0]   
+__________________________________________________________________________________________________
+batch_normalization_5 (BatchNor (None, 500)          2000        dense[0][0]                      
+__________________________________________________________________________________________________
+presence (Dense)                (None, 1)            501         batch_normalization_5[0][0]      
+__________________________________________________________________________________________________
+coordinates (Dense)             (None, 4)            2004        batch_normalization_5[0][0]      
+==================================================================================================
+Total params: 235,893
+Trainable params: 234,277
+Non-trainable params: 1,616
+__________________________________________________________________________________________________
+Epoch 1/10
+100/100 - 836s - loss: 0.8427 - presence_loss: 0.4596 - coordinates_loss: 0.3831 - presence_accuracy: 0.7825
+Epoch 2/10
+100/100 - 761s - loss: 0.2912 - presence_loss: 0.2321 - coordinates_loss: 0.0591 - presence_accuracy: 0.9131
+Epoch 3/10
+100/100 - 731s - loss: 0.1634 - presence_loss: 0.1127 - coordinates_loss: 0.0506 - presence_accuracy: 0.9594
+Epoch 4/10
+100/100 - 710s - loss: 0.1332 - presence_loss: 0.0910 - coordinates_loss: 0.0422 - presence_accuracy: 0.9694
+Epoch 5/10
+100/100 - 699s - loss: 0.1377 - presence_loss: 0.0842 - coordinates_loss: 0.0536 - presence_accuracy: 0.9714
+2021-06-03 10:36:59.697313: W tensorflow/python/util/util.cc:348] Sets are not currently considered sequences, but this may change in the future, so consider avoiding using them.

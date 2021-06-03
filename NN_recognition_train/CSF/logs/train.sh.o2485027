@@ -1,0 +1,240 @@
+tools/gcc/git(41):ERROR:105: Unable to locate a modulefile for 'tools/gcc/git/2.8.2'
+              total        used        free      shared  buff/cache   available
+Mem:         191862        7348      130527         694       53986      183085
+Swap:          8191         321        7870
+Thu Jun  3 09:33:44 2021       
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 460.32.03    Driver Version: 460.32.03    CUDA Version: 11.2     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                               |                      |               MIG M. |
+|===============================+======================+======================|
+|   0  Tesla V100-SXM2...  Off  | 00000000:1A:00.0 Off |                    0 |
+| N/A   45C    P0    57W / 300W |    308MiB / 16160MiB |      0%   E. Process |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+|   1  Tesla V100-SXM2...  Off  | 00000000:1C:00.0 Off |                    0 |
+| N/A   43C    P0    87W / 300W |    424MiB / 16160MiB |     14%   E. Process |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+|   2  Tesla V100-SXM2...  Off  | 00000000:1D:00.0 Off |                    0 |
+| N/A   34C    P0    41W / 300W |      3MiB / 16160MiB |      0%   E. Process |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+|   3  Tesla V100-SXM2...  Off  | 00000000:1E:00.0 Off |                    0 |
+| N/A   40C    P0    56W / 300W |      0MiB / 16160MiB |      5%   E. Process |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+                                                                               
++-----------------------------------------------------------------------------+
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
+|=============================================================================|
+|    0   N/A  N/A     88543      C   ...conda3/2019.07/bin/python      305MiB |
+|    1   N/A  N/A     90071      C   gmx                               421MiB |
++-----------------------------------------------------------------------------+
+2021-06-03 09:33:51.027862: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.10.1
+2021-06-03 09:34:41.417217: I tensorflow/compiler/jit/xla_cpu_device.cc:41] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-06-03 09:34:41.423512: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcuda.so.1
+2021-06-03 09:34:42.543010: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1720] Found device 0 with properties: 
+pciBusID: 0000:1e:00.0 name: Tesla V100-SXM2-16GB computeCapability: 7.0
+coreClock: 1.53GHz coreCount: 80 deviceMemorySize: 15.78GiB deviceMemoryBandwidth: 836.37GiB/s
+2021-06-03 09:34:42.543099: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.10.1
+2021-06-03 09:34:43.322574: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublas.so.10
+2021-06-03 09:34:43.322766: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublasLt.so.10
+2021-06-03 09:34:43.717848: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcufft.so.10
+2021-06-03 09:34:43.807426: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcurand.so.10
+2021-06-03 09:34:44.532794: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcusolver.so.10
+2021-06-03 09:34:44.676895: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcusparse.so.10
+2021-06-03 09:34:46.095040: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudnn.so.7
+2021-06-03 09:34:46.097406: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1862] Adding visible gpu devices: 0
+2021-06-03 09:34:46.103653: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  SSE4.1 SSE4.2 AVX AVX2 AVX512F FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-06-03 09:34:46.105757: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1720] Found device 0 with properties: 
+pciBusID: 0000:1e:00.0 name: Tesla V100-SXM2-16GB computeCapability: 7.0
+coreClock: 1.53GHz coreCount: 80 deviceMemorySize: 15.78GiB deviceMemoryBandwidth: 836.37GiB/s
+2021-06-03 09:34:46.105804: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.10.1
+2021-06-03 09:34:46.105874: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublas.so.10
+2021-06-03 09:34:46.105892: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublasLt.so.10
+2021-06-03 09:34:46.105909: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcufft.so.10
+2021-06-03 09:34:46.105934: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcurand.so.10
+2021-06-03 09:34:46.105949: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcusolver.so.10
+2021-06-03 09:34:46.105964: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcusparse.so.10
+2021-06-03 09:34:46.105980: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudnn.so.7
+2021-06-03 09:34:46.107792: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1862] Adding visible gpu devices: 0
+2021-06-03 09:34:46.118579: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.10.1
+2021-06-03 09:34:56.703676: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1261] Device interconnect StreamExecutor with strength 1 edge matrix:
+2021-06-03 09:34:56.704362: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1267]      0 
+2021-06-03 09:34:56.704396: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1280] 0:   N 
+2021-06-03 09:34:56.719735: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1406] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 14761 MB memory) -> physical GPU (device: 0, name: Tesla V100-SXM2-16GB, pci bus id: 0000:1e:00.0, compute capability: 7.0)
+2021-06-03 09:34:56.730688: I tensorflow/compiler/jit/xla_gpu_device.cc:99] Not creating XLA devices, tf_xla_enable_xla_devices not set
+WARNING:tensorflow:`period` argument is deprecated. Please use `save_freq` to specify the frequency in number of batches seen.
+2021-06-03 09:34:57.611952: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:116] None of the MLIR optimization passes are enabled (registered 2)
+2021-06-03 09:34:57.612543: I tensorflow/core/platform/profile_utils/cpu_utils.cc:112] CPU Frequency: 2100000000 Hz
+WARNING:tensorflow:AutoGraph could not transform <function custom_mse at 0x2b8a718da790> and will run it as-is.
+Please report this to the TensorFlow team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output.
+Cause: module 'gast' has no attribute 'Index'
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+MODEL NAME = step1_new_model_mobilenet
+Model: "model"
+__________________________________________________________________________________________________
+Layer (type)                    Output Shape         Param #     Connected to                     
+==================================================================================================
+input_1 (InputLayer)            [(None, 224, 224, 3) 0                                            
+__________________________________________________________________________________________________
+tf.math.truediv (TFOpLambda)    (None, 224, 224, 3)  0           input_1[0][0]                    
+__________________________________________________________________________________________________
+tf.math.subtract (TFOpLambda)   (None, 224, 224, 3)  0           tf.math.truediv[0][0]            
+__________________________________________________________________________________________________
+conv2d (Conv2D)                 (None, 112, 112, 32) 864         tf.math.subtract[0][0]           
+__________________________________________________________________________________________________
+batch_normalization (BatchNorma (None, 112, 112, 32) 128         conv2d[0][0]                     
+__________________________________________________________________________________________________
+re_lu (ReLU)                    (None, 112, 112, 32) 0           batch_normalization[0][0]        
+__________________________________________________________________________________________________
+conv2d_1 (Conv2D)               (None, 112, 112, 16) 512         re_lu[0][0]                      
+__________________________________________________________________________________________________
+batch_normalization_1 (BatchNor (None, 112, 112, 16) 64          conv2d_1[0][0]                   
+__________________________________________________________________________________________________
+re_lu_1 (ReLU)                  (None, 112, 112, 16) 0           batch_normalization_1[0][0]      
+__________________________________________________________________________________________________
+depthwise_conv2d (DepthwiseConv (None, 112, 112, 16) 144         re_lu_1[0][0]                    
+__________________________________________________________________________________________________
+batch_normalization_2 (BatchNor (None, 112, 112, 16) 64          depthwise_conv2d[0][0]           
+__________________________________________________________________________________________________
+re_lu_2 (ReLU)                  (None, 112, 112, 16) 0           batch_normalization_2[0][0]      
+__________________________________________________________________________________________________
+conv2d_2 (Conv2D)               (None, 112, 112, 16) 256         re_lu_2[0][0]                    
+__________________________________________________________________________________________________
+batch_normalization_3 (BatchNor (None, 112, 112, 16) 64          conv2d_2[0][0]                   
+__________________________________________________________________________________________________
+conv2d_3 (Conv2D)               (None, 112, 112, 144 2304        batch_normalization_3[0][0]      
+__________________________________________________________________________________________________
+batch_normalization_4 (BatchNor (None, 112, 112, 144 576         conv2d_3[0][0]                   
+__________________________________________________________________________________________________
+re_lu_3 (ReLU)                  (None, 112, 112, 144 0           batch_normalization_4[0][0]      
+__________________________________________________________________________________________________
+depthwise_conv2d_1 (DepthwiseCo (None, 56, 56, 144)  1296        re_lu_3[0][0]                    
+__________________________________________________________________________________________________
+batch_normalization_5 (BatchNor (None, 56, 56, 144)  576         depthwise_conv2d_1[0][0]         
+__________________________________________________________________________________________________
+re_lu_4 (ReLU)                  (None, 56, 56, 144)  0           batch_normalization_5[0][0]      
+__________________________________________________________________________________________________
+conv2d_4 (Conv2D)               (None, 56, 56, 24)   3456        re_lu_4[0][0]                    
+__________________________________________________________________________________________________
+batch_normalization_6 (BatchNor (None, 56, 56, 24)   96          conv2d_4[0][0]                   
+__________________________________________________________________________________________________
+conv2d_5 (Conv2D)               (None, 56, 56, 144)  3456        batch_normalization_6[0][0]      
+__________________________________________________________________________________________________
+batch_normalization_7 (BatchNor (None, 56, 56, 144)  576         conv2d_5[0][0]                   
+__________________________________________________________________________________________________
+re_lu_5 (ReLU)                  (None, 56, 56, 144)  0           batch_normalization_7[0][0]      
+__________________________________________________________________________________________________
+depthwise_conv2d_2 (DepthwiseCo (None, 56, 56, 144)  1296        re_lu_5[0][0]                    
+__________________________________________________________________________________________________
+batch_normalization_8 (BatchNor (None, 56, 56, 144)  576         depthwise_conv2d_2[0][0]         
+__________________________________________________________________________________________________
+re_lu_6 (ReLU)                  (None, 56, 56, 144)  0           batch_normalization_8[0][0]      
+__________________________________________________________________________________________________
+conv2d_6 (Conv2D)               (None, 56, 56, 24)   3456        re_lu_6[0][0]                    
+__________________________________________________________________________________________________
+batch_normalization_9 (BatchNor (None, 56, 56, 24)   96          conv2d_6[0][0]                   
+__________________________________________________________________________________________________
+add (Add)                       (None, 56, 56, 24)   0           batch_normalization_6[0][0]      
+                                                                 batch_normalization_9[0][0]      
+__________________________________________________________________________________________________
+conv2d_7 (Conv2D)               (None, 56, 56, 192)  4608        add[0][0]                        
+__________________________________________________________________________________________________
+batch_normalization_10 (BatchNo (None, 56, 56, 192)  768         conv2d_7[0][0]                   
+__________________________________________________________________________________________________
+re_lu_7 (ReLU)                  (None, 56, 56, 192)  0           batch_normalization_10[0][0]     
+__________________________________________________________________________________________________
+depthwise_conv2d_3 (DepthwiseCo (None, 28, 28, 192)  1728        re_lu_7[0][0]                    
+__________________________________________________________________________________________________
+batch_normalization_11 (BatchNo (None, 28, 28, 192)  768         depthwise_conv2d_3[0][0]         
+__________________________________________________________________________________________________
+re_lu_8 (ReLU)                  (None, 28, 28, 192)  0           batch_normalization_11[0][0]     
+__________________________________________________________________________________________________
+conv2d_8 (Conv2D)               (None, 28, 28, 32)   6144        re_lu_8[0][0]                    
+__________________________________________________________________________________________________
+batch_normalization_12 (BatchNo (None, 28, 28, 32)   128         conv2d_8[0][0]                   
+__________________________________________________________________________________________________
+conv2d_9 (Conv2D)               (None, 28, 28, 192)  6144        batch_normalization_12[0][0]     
+__________________________________________________________________________________________________
+batch_normalization_13 (BatchNo (None, 28, 28, 192)  768         conv2d_9[0][0]                   
+__________________________________________________________________________________________________
+re_lu_9 (ReLU)                  (None, 28, 28, 192)  0           batch_normalization_13[0][0]     
+__________________________________________________________________________________________________
+depthwise_conv2d_4 (DepthwiseCo (None, 28, 28, 192)  1728        re_lu_9[0][0]                    
+__________________________________________________________________________________________________
+batch_normalization_14 (BatchNo (None, 28, 28, 192)  768         depthwise_conv2d_4[0][0]         
+__________________________________________________________________________________________________
+re_lu_10 (ReLU)                 (None, 28, 28, 192)  0           batch_normalization_14[0][0]     
+__________________________________________________________________________________________________
+conv2d_10 (Conv2D)              (None, 28, 28, 32)   6144        re_lu_10[0][0]                   
+__________________________________________________________________________________________________
+batch_normalization_15 (BatchNo (None, 28, 28, 32)   128         conv2d_10[0][0]                  
+__________________________________________________________________________________________________
+add_1 (Add)                     (None, 28, 28, 32)   0           batch_normalization_12[0][0]     
+                                                                 batch_normalization_15[0][0]     
+__________________________________________________________________________________________________
+conv2d_11 (Conv2D)              (None, 28, 28, 144)  4608        add_1[0][0]                      
+__________________________________________________________________________________________________
+batch_normalization_16 (BatchNo (None, 28, 28, 144)  576         conv2d_11[0][0]                  
+__________________________________________________________________________________________________
+re_lu_11 (ReLU)                 (None, 28, 28, 144)  0           batch_normalization_16[0][0]     
+__________________________________________________________________________________________________
+depthwise_conv2d_5 (DepthwiseCo (None, 14, 14, 144)  1296        re_lu_11[0][0]                   
+__________________________________________________________________________________________________
+batch_normalization_17 (BatchNo (None, 14, 14, 144)  576         depthwise_conv2d_5[0][0]         
+__________________________________________________________________________________________________
+re_lu_12 (ReLU)                 (None, 14, 14, 144)  0           batch_normalization_17[0][0]     
+__________________________________________________________________________________________________
+conv2d_12 (Conv2D)              (None, 14, 14, 24)   3456        re_lu_12[0][0]                   
+__________________________________________________________________________________________________
+batch_normalization_18 (BatchNo (None, 14, 14, 24)   96          conv2d_12[0][0]                  
+__________________________________________________________________________________________________
+conv2d_13 (Conv2D)              (None, 14, 14, 6)    144         batch_normalization_18[0][0]     
+__________________________________________________________________________________________________
+batch_normalization_19 (BatchNo (None, 14, 14, 6)    24          conv2d_13[0][0]                  
+__________________________________________________________________________________________________
+re_lu_13 (ReLU)                 (None, 14, 14, 6)    0           batch_normalization_19[0][0]     
+__________________________________________________________________________________________________
+flatten (Flatten)               (None, 1176)         0           re_lu_13[0][0]                   
+__________________________________________________________________________________________________
+dense (Dense)                   (None, 500)          588000      flatten[0][0]                    
+__________________________________________________________________________________________________
+batch_normalization_20 (BatchNo (None, 500)          2000        dense[0][0]                      
+__________________________________________________________________________________________________
+re_lu_14 (ReLU)                 (None, 500)          0           batch_normalization_20[0][0]     
+__________________________________________________________________________________________________
+presence (Dense)                (None, 1)            501         re_lu_14[0][0]                   
+__________________________________________________________________________________________________
+coordinates (Dense)             (None, 4)            2004        re_lu_14[0][0]                   
+==================================================================================================
+Total params: 652,961
+Trainable params: 648,253
+Non-trainable params: 4,708
+__________________________________________________________________________________________________
+Epoch 1/10
+2021-06-03 09:34:59.542394: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublas.so.10
+2021-06-03 09:35:10.371905: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudnn.so.7
+2021-06-03 09:35:20.418437: W tensorflow/stream_executor/gpu/asm_compiler.cc:63] Running ptxas --version returned 256
+2021-06-03 09:35:20.493965: W tensorflow/stream_executor/gpu/redzone_allocator.cc:314] Internal: ptxas exited with non-zero error code 256, output: 
+Relying on driver to perform ptx compilation. 
+Modify $PATH to customize ptxas location.
+This message will be only logged once.
+100/100 - 842s - loss: 0.6521 - presence_loss: 0.4639 - coordinates_loss: 0.1882 - presence_accuracy: 0.7666
+Epoch 2/10
+100/100 - 686s - loss: 0.1253 - presence_loss: 0.1049 - coordinates_loss: 0.0204 - presence_accuracy: 0.9659
+Epoch 3/10
+100/100 - 652s - loss: 0.0819 - presence_loss: 0.0723 - coordinates_loss: 0.0097 - presence_accuracy: 0.9756
+Epoch 4/10
+100/100 - 645s - loss: 0.0589 - presence_loss: 0.0504 - coordinates_loss: 0.0084 - presence_accuracy: 0.9834
+Epoch 5/10
+100/100 - 635s - loss: 0.0496 - presence_loss: 0.0448 - coordinates_loss: 0.0048 - presence_accuracy: 0.9862
+2021-06-03 10:32:39.814231: W tensorflow/python/util/util.cc:348] Sets are not currently considered sequences, but this may change in the future, so consider avoiding using them.
+Epoch 6/10
+100/100 - 626s - loss: 0.0438 - presence_loss: 0.0372 - coordinates_loss: 0.0066 - presence_accuracy: 0.9886

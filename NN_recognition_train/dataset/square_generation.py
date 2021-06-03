@@ -13,7 +13,7 @@ IMAGE_SIZE = 1000
 
 FONTS_DIR = "dataset/fonts/*ttf"
 
-SPOTLIGHT_PROB = 0.2
+SPOTLIGHT_PROB = 0
 
 
 

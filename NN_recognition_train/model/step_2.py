@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 import random
 
-from dataset.secondary_generator import retrieve_tf_dataset_secondary
+from dataset.secondary_generator import retrieve_tf_dataset_secondary, secondary_generator
 
 IMAGE_SIZE = 224
 

@@ -36,13 +36,13 @@ model_step_1 = k.models.load_model(f"weights/{model_to_use}", custom_objects = {
 
 def generate_batch():
     images = np.empty((BATCH_SIZE,1000,1000,3), dtype = np.float32)
-    enc_letter = np.zeros((BATCH_SIZE,36), dtype = np.float32)
+    enc_letter = np.zeros((BATCH_SIZE,1), dtype = np.int32)
     enc_colour = np.zeros((BATCH_SIZE,3), dtype = np.float32)
     i = 0
     with ProcessPoolExecutor(max_workers = 8) as executor:
         for X, coords, letter, colour in executor.map(stitch_random_square, random.sample(list_of_grass_images,BATCH_SIZE)):
             images[i] = X
-            enc_letter[i, char_to_int[letter]] = 1
+            enc_letter[i,0] = char_to_int[letter]
             enc_colour[i,:] = np.array(colour)/255
             i = i + 1
     return images, enc_letter, enc_colour
@@ -77,6 +77,6 @@ def secondary_generator():
 
 
 def retrieve_tf_dataset_secondary():
-    tf_data = tf.data.Dataset.from_generator(secondary_generator, output_types = (tf.float32,(tf.float32, tf.float32)), output_shapes = ((BATCH_SIZE,224,224,3),((BATCH_SIZE,36),(BATCH_SIZE,3))))
+    tf_data = tf.data.Dataset.from_generator(secondary_generator, output_types = (tf.float32,(tf.int32, tf.float32)), output_shapes = ((BATCH_SIZE,224,224,3),((BATCH_SIZE,1),(BATCH_SIZE,3))))
     tf_data = tf_data.prefetch(buffer_size = 3)
     return tf_data
