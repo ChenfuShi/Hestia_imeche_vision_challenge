@@ -238,3 +238,11 @@ Epoch 5/10
 2021-06-03 10:32:39.814231: W tensorflow/python/util/util.cc:348] Sets are not currently considered sequences, but this may change in the future, so consider avoiding using them.
 Epoch 6/10
 100/100 - 626s - loss: 0.0438 - presence_loss: 0.0372 - coordinates_loss: 0.0066 - presence_accuracy: 0.9886
+Epoch 7/10
+100/100 - 627s - loss: 0.0564 - presence_loss: 0.0436 - coordinates_loss: 0.0129 - presence_accuracy: 0.9871
+Epoch 8/10
+100/100 - 621s - loss: 0.0478 - presence_loss: 0.0417 - coordinates_loss: 0.0060 - presence_accuracy: 0.9865
+Epoch 9/10
+100/100 - 627s - loss: 0.0455 - presence_loss: 0.0415 - coordinates_loss: 0.0040 - presence_accuracy: 0.9874
+Epoch 10/10
+100/100 - 629s - loss: 0.0259 - presence_loss: 0.0227 - coordinates_loss: 0.0032 - presence_accuracy: 0.9939

@@ -80,3 +80,5 @@ def train_this(model_name):
     model.fit(tf_data, epochs = 10, verbose = 2, steps_per_epoch = 50, callbacks=[checkpoint])
     
     model.save(f'weights/{model_name}.tf', save_format = "tf")
+
+    model.evaluate(tf_data, steps = 10, verbose = 2)

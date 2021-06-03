@@ -20,10 +20,9 @@ int_to_char = dict((i, c) for i, c in enumerate(alphabet))
 BATCH_SIZE = 96
 
 list_of_grass_images = glob.glob(DATASET_DIR + "/*jpeg")
-list_of_negative_images = glob.glob(TRUE_NEGATIVES_DIR + "/*jpeg")
 
 ##########################################
-model_to_use = "step1_without_trainable.tf"
+model_to_use = "step1_new_model_mobilenet.tf"
 ##########################################
 def custom_mse(y_true,y_pred):
     y_pred_filtered = y_pred[~tf.math.is_nan(tf.reduce_sum(y_true,axis = 1))]
@@ -39,7 +38,7 @@ def generate_batch():
     enc_letter = np.zeros((BATCH_SIZE,1), dtype = np.int32)
     enc_colour = np.zeros((BATCH_SIZE,3), dtype = np.float32)
     i = 0
-    with ProcessPoolExecutor(max_workers = 8) as executor:
+    with ProcessPoolExecutor(max_workers = 3) as executor:
         for X, coords, letter, colour in executor.map(stitch_random_square, random.sample(list_of_grass_images,BATCH_SIZE)):
             images[i] = X
             enc_letter[i,0] = char_to_int[letter]
@@ -50,8 +49,8 @@ def generate_batch():
 def sanitize(coords):
     A = np.clip(coords[0],0.01,0.99)
     B = np.clip(coords[1],0.01,0.99)
-    C = np.clip(coords[2],0.1,0.7)
-    D = np.clip(coords[3],0.1,0.7)
+    C = np.clip(coords[2],0.15,0.7)
+    D = np.clip(coords[3],0.15,0.7)
     X0 = max(A - D/1, 0)
     Y0 = max(B - C/1, 0)
     X1 = min(A + D/1, 1)
@@ -62,7 +61,7 @@ def secondary_generator():
     while True:
         X, enc_letter, enc_colour = generate_batch()
         
-        presence_pred, coords_pred = model_step_1(tf.image.resize(X.reshape(BATCH_SIZE,1000,1000,3), (224, 224)), training = True)
+        presence_pred, coords_pred = model_step_1.predict(tf.image.resize(X.reshape(BATCH_SIZE,1000,1000,3), (224, 224)))
         cropped_images = np.empty((BATCH_SIZE,224,224,3), dtype = np.float32)
         for i in range(BATCH_SIZE):
             X0, X1, Y0, Y1 = sanitize(coords_pred[i])
