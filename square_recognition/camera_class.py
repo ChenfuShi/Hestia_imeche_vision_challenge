@@ -13,7 +13,7 @@ class camera_obj:
     def __init__(self):
         # Initialize the PiCamera and the camera image stream
         self.camera = PiCamera()
-        self.camera.exposure_compensation = -8
+        self.camera.exposure_compensation = -12
         self.camera.resolution = (1024, 1008)
         self.camera.framerate = 10
         time.sleep(1)
