@@ -39,7 +39,7 @@ def align_coords(coords):
 
 csv_file = "../data/custom_data_1.csv"
 custom_labels = pd.read_csv(csv_file, index_col = "image")
-list_of_extra_images = glob.glob("../data/ADDITIONAL" + "/*jpeg")
+list_of_extra_images = glob.glob("../data/ADDITIONAL" + "/*jp*")
 def retrieve_extra():
     img_file = random.choice(list_of_extra_images)
     img_name = os.path.basename(img_file)
@@ -52,17 +52,17 @@ def retrieve_extra():
     position = np.array((mid_X/1000, mid_Y/1000, total_h/1000, total_w/1000))
     enc_letter = np.zeros(36)
     enc_letter[char_to_int[custom_labels.loc[img_name,"letter"]]] = 1
-    return X, (presence, position, enc_letter)
+    return X, (presence, position)
 
 
 
 def train_generator():
-    while True:
-        if random.random() > SPIKE_IN_PROB:
+    for i in range(90000):
+        if random.random() < SPIKE_IN_PROB:
             yield retrieve_extra()
         if random.random() > TRUE_NEG_PRO:
             if random.random() > STITCH_PROB:
-                X, coords, letter, color = stitch_random_square(random.choice(list_of_grass_images))
+                X, coords, letter, colour = stitch_random_square(random.choice(list_of_grass_images))
                 presence = 1
                 position = align_coords(coords)
                 enc_letter = np.zeros(36)
@@ -80,7 +80,7 @@ def train_generator():
             position = np.full(4, np.nan)
             enc_letter = np.full(36, np.nan)
         # preprocess input for imagenet style
-        yield X, (presence, position, enc_letter)
+        yield X, (presence, position)
 
 def bg_parallel():
     def _bg_gen(gen, queue):
@@ -91,13 +91,13 @@ def bg_parallel():
 
     pqueue = multiprocessing.Queue(maxsize=100)
 
-    p_list = [multiprocessing.Process(target=_bg_gen, args=(train_generator, pqueue)) for x in range(7)]
+    p_list = [multiprocessing.Process(target=_bg_gen, args=(train_generator, pqueue)) for x in range(6)]
 
     [p.start() for p in p_list]
     for i in range(10000):
         while True:
             a = pqueue.get()
-            if type(a) == "tuple":
+            if type(a) is tuple:
                 if a[0].shape == (1000,1000,3):
                     break
             print(a)
@@ -106,13 +106,15 @@ def bg_parallel():
     
 
 def retrieve_tf_dataset():
-    tf_data = tf.data.Dataset.from_generator(bg_parallel, output_types = (tf.float32,(tf.float32,tf.float32,tf.float32)), output_shapes = ((1000,1000,3),((),(4),(36))))
+    tf_data = tf.data.Dataset.from_generator(train_generator, output_types = (tf.float32,(tf.float32,tf.float32)), output_shapes = ((1000,1000,3),((),(4),)))
 
-    tf_data = tf_data.map((lambda image ,Y: (tf.image.resize(image, (400, 400)), Y)), num_parallel_calls = 6)
+    tf_data = tf_data.map((lambda image ,Y: (tf.image.resize(image, (224, 224)), Y)), num_parallel_calls = 6)
     tf_data = tf_data.map((lambda image ,Y: (tf.image.random_contrast(image, 0.8, 1.2), Y)), num_parallel_calls = 6)
     tf_data = tf_data.map((lambda image ,Y: (tf.image.random_brightness(image, 40,), Y)), num_parallel_calls = 6)
     tf_data = tf_data.map((lambda image ,Y: (tf.image.random_saturation(image, 0.8, 1.2), Y)), num_parallel_calls = 6)
     tf_data = tf_data.map((lambda image ,Y: (tf.image.random_hue(image, 0.05), Y)), num_parallel_calls = 6)
     tf_data = tf_data.prefetch(buffer_size = 200)
-    tf_data = tf_data.batch(32)
+    tf_data = tf_data.batch(96)
+    tf_data = tf_data.cache("/mnt/iusers01/jw01/mdefscs4/scratch/step_1_cache_06-03-2021.tfdata")
+    tf_data = tf_data.repeat()
     return tf_data

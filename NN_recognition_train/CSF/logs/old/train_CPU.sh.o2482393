@@ -1,0 +1,75 @@
+tools/gcc/git(41):ERROR:105: Unable to locate a modulefile for 'tools/gcc/git/2.8.2'
+              total        used        free      shared  buff/cache   available
+Mem:         128677        1926      120265         715        6485      125424
+Swap:         16383         492       15891
+/opt/site/sge/default/spool/node740/job_scripts/2482393: line 14: nvidia-smi: command not found
+2021-06-01 15:02:36.072554: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.10.1
+2021-06-01 15:02:56.247792: I tensorflow/compiler/jit/xla_cpu_device.cc:41] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-06-01 15:02:56.252565: W tensorflow/stream_executor/platform/default/dso_loader.cc:60] Could not load dynamic library 'libcuda.so.1'; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory
+2021-06-01 15:02:56.252598: W tensorflow/stream_executor/cuda/cuda_driver.cc:326] failed call to cuInit: UNKNOWN ERROR (303)
+2021-06-01 15:02:56.252636: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (node740.pri.csf3.alces.network): /proc/driver/nvidia/version does not exist
+2021-06-01 15:02:56.257797: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  SSE4.1 SSE4.2 AVX AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-06-01 15:02:56.258995: I tensorflow/compiler/jit/xla_gpu_device.cc:99] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-06-01 15:03:01.457750: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:116] None of the MLIR optimization passes are enabled (registered 2)
+2021-06-01 15:03:01.458662: I tensorflow/core/platform/profile_utils/cpu_utils.cc:112] CPU Frequency: 2399880000 Hz
+WARNING:tensorflow:AutoGraph could not transform <function custom_mse at 0x2af8b5c87940> and will run it as-is.
+Please report this to the TensorFlow team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output.
+Cause: module 'gast' has no attribute 'Index'
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+MODEL NAME = step1_224_noletter_nopretrain
+Epoch 1/10
+Traceback (most recent call last):
+  File "train_CPU.py", line 24, in <module>
+    train_this(model_name)
+  File "/mnt/jw01-aruk-home01/projects/ra_challenge/hestia/Hestia_imeche_vision_challenge/NN_recognition_train/model/mobile_net_copy.py", line 59, in train_this
+    model.fit(tf_data, epochs = 10, verbose = 2,)
+  File "/mnt/jw01-aruk-home01/projects/psa_functional_genomics/differential_HiC_analyser/conda_env/lib/python3.8/site-packages/tensorflow/python/keras/engine/training.py", line 1100, in fit
+    tmp_logs = self.train_function(iterator)
+  File "/mnt/jw01-aruk-home01/projects/psa_functional_genomics/differential_HiC_analyser/conda_env/lib/python3.8/site-packages/tensorflow/python/eager/def_function.py", line 828, in __call__
+    result = self._call(*args, **kwds)
+  File "/mnt/jw01-aruk-home01/projects/psa_functional_genomics/differential_HiC_analyser/conda_env/lib/python3.8/site-packages/tensorflow/python/eager/def_function.py", line 871, in _call
+    self._initialize(args, kwds, add_initializers_to=initializers)
+  File "/mnt/jw01-aruk-home01/projects/psa_functional_genomics/differential_HiC_analyser/conda_env/lib/python3.8/site-packages/tensorflow/python/eager/def_function.py", line 725, in _initialize
+    self._stateful_fn._get_concrete_function_internal_garbage_collected(  # pylint: disable=protected-access
+  File "/mnt/jw01-aruk-home01/projects/psa_functional_genomics/differential_HiC_analyser/conda_env/lib/python3.8/site-packages/tensorflow/python/eager/function.py", line 2969, in _get_concrete_function_internal_garbage_collected
+    graph_function, _ = self._maybe_define_function(args, kwargs)
+  File "/mnt/jw01-aruk-home01/projects/psa_functional_genomics/differential_HiC_analyser/conda_env/lib/python3.8/site-packages/tensorflow/python/eager/function.py", line 3361, in _maybe_define_function
+    graph_function = self._create_graph_function(args, kwargs)
+  File "/mnt/jw01-aruk-home01/projects/psa_functional_genomics/differential_HiC_analyser/conda_env/lib/python3.8/site-packages/tensorflow/python/eager/function.py", line 3196, in _create_graph_function
+    func_graph_module.func_graph_from_py_func(
+  File "/mnt/jw01-aruk-home01/projects/psa_functional_genomics/differential_HiC_analyser/conda_env/lib/python3.8/site-packages/tensorflow/python/framework/func_graph.py", line 990, in func_graph_from_py_func
+    func_outputs = python_func(*func_args, **func_kwargs)
+  File "/mnt/jw01-aruk-home01/projects/psa_functional_genomics/differential_HiC_analyser/conda_env/lib/python3.8/site-packages/tensorflow/python/eager/def_function.py", line 634, in wrapped_fn
+    out = weak_wrapped_fn().__wrapped__(*args, **kwds)
+  File "/mnt/jw01-aruk-home01/projects/psa_functional_genomics/differential_HiC_analyser/conda_env/lib/python3.8/site-packages/tensorflow/python/framework/func_graph.py", line 977, in wrapper
+    raise e.ag_error_metadata.to_exception(e)
+ValueError: in user code:
+
+    /mnt/jw01-aruk-home01/projects/psa_functional_genomics/differential_HiC_analyser/conda_env/lib/python3.8/site-packages/tensorflow/python/keras/engine/training.py:805 train_function  *
+        return step_function(self, iterator)
+    /mnt/jw01-aruk-home01/projects/psa_functional_genomics/differential_HiC_analyser/conda_env/lib/python3.8/site-packages/tensorflow/python/keras/engine/training.py:795 step_function  **
+        outputs = model.distribute_strategy.run(run_step, args=(data,))
+    /mnt/jw01-aruk-home01/projects/psa_functional_genomics/differential_HiC_analyser/conda_env/lib/python3.8/site-packages/tensorflow/python/distribute/distribute_lib.py:1259 run
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    /mnt/jw01-aruk-home01/projects/psa_functional_genomics/differential_HiC_analyser/conda_env/lib/python3.8/site-packages/tensorflow/python/distribute/distribute_lib.py:2730 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    /mnt/jw01-aruk-home01/projects/psa_functional_genomics/differential_HiC_analyser/conda_env/lib/python3.8/site-packages/tensorflow/python/distribute/distribute_lib.py:3417 _call_for_each_replica
+        return fn(*args, **kwargs)
+    /mnt/jw01-aruk-home01/projects/psa_functional_genomics/differential_HiC_analyser/conda_env/lib/python3.8/site-packages/tensorflow/python/keras/engine/training.py:788 run_step  **
+        outputs = model.train_step(data)
+    /mnt/jw01-aruk-home01/projects/psa_functional_genomics/differential_HiC_analyser/conda_env/lib/python3.8/site-packages/tensorflow/python/keras/engine/training.py:758 train_step
+        self.compiled_metrics.update_state(y, y_pred, sample_weight)
+    /mnt/jw01-aruk-home01/projects/psa_functional_genomics/differential_HiC_analyser/conda_env/lib/python3.8/site-packages/tensorflow/python/keras/engine/compile_utils.py:387 update_state
+        self.build(y_pred, y_true)
+    /mnt/jw01-aruk-home01/projects/psa_functional_genomics/differential_HiC_analyser/conda_env/lib/python3.8/site-packages/tensorflow/python/keras/engine/compile_utils.py:317 build
+        self._metrics = nest.map_structure_up_to(y_pred, self._get_metric_objects,
+    /mnt/jw01-aruk-home01/projects/psa_functional_genomics/differential_HiC_analyser/conda_env/lib/python3.8/site-packages/tensorflow/python/util/nest.py:1159 map_structure_up_to
+        return map_structure_with_tuple_paths_up_to(
+    /mnt/jw01-aruk-home01/projects/psa_functional_genomics/differential_HiC_analyser/conda_env/lib/python3.8/site-packages/tensorflow/python/util/nest.py:1241 map_structure_with_tuple_paths_up_to
+        assert_shallow_structure(
+    /mnt/jw01-aruk-home01/projects/psa_functional_genomics/differential_HiC_analyser/conda_env/lib/python3.8/site-packages/tensorflow/python/util/nest.py:876 assert_shallow_structure
+        raise ValueError(
+
+    ValueError: The two structures don't have the same sequence length. Input structure has length 3, while shallow structure has length 2.
+

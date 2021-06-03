@@ -13,7 +13,7 @@ IMAGE_SIZE = 1000
 
 FONTS_DIR = "dataset/fonts/*ttf"
 
-SPOTLIGHT_PROB = 0.3
+SPOTLIGHT_PROB = 0.2
 
 
 
@@ -89,7 +89,7 @@ def stitch_random_square(file_grass_img):
     grass_img = Image.open(file_grass_img)
     square_img, letter, color = get_random_target()
     
-    square_initial_size = random.randint(30,150)
+    square_initial_size = random.randint(60,180)
     A_X, A_Y = square_initial_size//2,square_initial_size//2
     B_X, B_Y = A_X, A_Y + square_initial_size
     C_X, C_Y = random.randint(int(A_X + 0.9 * square_initial_size), int(A_X + 1.1 * square_initial_size)), random.randint(int(A_Y - 0.1 * square_initial_size), int(A_Y + 0.1 * square_initial_size))
@@ -104,7 +104,7 @@ def stitch_random_square(file_grass_img):
     C_X, C_Y = np.dot(np.array((C_X, C_Y)), r)
     D_X, D_Y = np.dot(np.array((D_X, D_Y)), r)
 
-    t_X, t_Y = random.randint(square_initial_size,900), random.randint(square_initial_size,900)
+    t_X, t_Y = random.randint(square_initial_size,850), random.randint(square_initial_size,850)
 
     A_X, B_X, C_X, D_X = A_X + t_X, B_X + t_X, C_X + t_X, D_X + t_X
     A_Y, B_Y, C_Y, D_Y = A_Y + t_Y, B_Y + t_Y, C_Y + t_Y, D_Y + t_Y

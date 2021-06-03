@@ -1,0 +1,22 @@
+tools/gcc/git(41):ERROR:105: Unable to locate a modulefile for 'tools/gcc/git/2.8.2'
+              total        used        free      shared  buff/cache   available
+Mem:         128677        6440      111360         718       10876      120906
+Swap:         16383         441       15942
+/opt/site/sge/default/spool/node748/job_scripts/2484087: line 14: nvidia-smi: command not found
+2021-06-02 13:48:58.929968: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.10.1
+2021-06-02 13:49:21.327756: I tensorflow/compiler/jit/xla_cpu_device.cc:41] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-06-02 13:49:21.332906: W tensorflow/stream_executor/platform/default/dso_loader.cc:60] Could not load dynamic library 'libcuda.so.1'; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory
+2021-06-02 13:49:21.332927: W tensorflow/stream_executor/cuda/cuda_driver.cc:326] failed call to cuInit: UNKNOWN ERROR (303)
+2021-06-02 13:49:21.332955: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (node748.pri.csf3.alces.network): /proc/driver/nvidia/version does not exist
+2021-06-02 13:49:21.338167: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  SSE4.1 SSE4.2 AVX AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-06-02 13:49:21.339476: I tensorflow/compiler/jit/xla_gpu_device.cc:99] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-06-02 13:49:22.377100: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:116] None of the MLIR optimization passes are enabled (registered 2)
+2021-06-02 13:49:22.377667: I tensorflow/core/platform/profile_utils/cpu_utils.cc:112] CPU Frequency: 2399740000 Hz
+WARNING:tensorflow:AutoGraph could not transform <function custom_mse at 0x2ada584578b0> and will run it as-is.
+Please report this to the TensorFlow team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output.
+Cause: module 'gast' has no attribute 'Index'
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+MODEL NAME = slightly_different_arc_normal-conv-end_step1
+Epoch 1/10
+/opt/site/sge/default/spool/node748/job_scripts/2484087: line 23: 13207 Segmentation fault      python train_CPU.py ${model_name}
