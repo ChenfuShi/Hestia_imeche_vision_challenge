@@ -23,7 +23,7 @@ class camera_setup():
         if (self.is_recording == False) and (self.initialized == False):
             self.initialized = True
             self.camera = PiCamera()
-            self.camera.exposure_compensation = -12
+            self.camera.exposure_compensation = -15
             self.camera.resolution = (1000, 1000)
             self.camera.framerate = 10
         if self.is_recording == False:
