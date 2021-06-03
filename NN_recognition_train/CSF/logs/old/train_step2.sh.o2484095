@@ -1,6 +1,0 @@
-tools/gcc/git(41):ERROR:105: Unable to locate a modulefile for 'tools/gcc/git/2.8.2'
-              total        used        free      shared  buff/cache   available
-Mem:         128677        7681      109718         718       11277      119689
-Swap:         16383         441       15942
-/opt/site/sge/default/spool/node748/job_scripts/2484095: line 14: nvidia-smi: command not found
-python: can't open file 'train_step_2.py': [Errno 2] No such file or directory
