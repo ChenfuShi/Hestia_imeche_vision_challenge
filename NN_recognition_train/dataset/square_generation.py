@@ -8,7 +8,7 @@ import math
 import cv2
 import skimage
 from scipy.stats import norm
-
+from skimage import exposure
 IMAGE_SIZE = 1000
 
 FONTS_DIR = "dataset/fonts/*ttf"
@@ -87,6 +87,7 @@ def paste_square(target_coords, grass_img, square_img, rand_blur = True):
 
 def stitch_random_square(file_grass_img):
     grass_img = Image.open(file_grass_img)
+    grass_img = Image.fromarray(exposure.adjust_gamma(np.array(grass_img), 2))
     square_img, letter, color = get_random_target()
     
     square_initial_size = random.randint(60,180)

@@ -8,7 +8,7 @@ import glob
 from dataset.square_generation import stitch_random_square
 from PIL import Image
 import multiprocessing
-
+from skimage import exposure
 DATASET_DIR = "../data/grass_pretrain"
 TRUE_NEGATIVES_DIR = "../data/true_negatives_pretrain"
 
@@ -43,7 +43,7 @@ list_of_extra_images = glob.glob("../data/ADDITIONAL" + "/*jp*")
 def retrieve_extra():
     img_file = random.choice(list_of_extra_images)
     img_name = os.path.basename(img_file)
-    X = np.array(Image.open(img_file))
+    X = X = exposure.adjust_gamma(np.array(Image.open(img_file)), 1.5)
     presence = 1
     mid_X = (custom_labels.loc[img_name,"point_a"] + custom_labels.loc[img_name,"point_c"]) / 2 
     mid_Y = (custom_labels.loc[img_name,"point_b"] + custom_labels.loc[img_name,"point_d"]) / 2 
@@ -69,13 +69,13 @@ def train_generator():
                 enc_letter[char_to_int[letter]] = 1
             else:
                 img_file = random.choice(list_of_grass_images)
-                X = np.array(Image.open(img_file))
+                X = exposure.adjust_gamma(np.array(Image.open(img_file)), 2)
                 presence = 0
                 position = np.full(4, np.nan)
                 enc_letter = np.full(36, np.nan)
         else:
             img_file = random.choice(list_of_negative_images)
-            X = np.array(Image.open(img_file))
+            X = exposure.adjust_gamma(np.array(Image.open(img_file)), 2)
             presence = 0
             position = np.full(4, np.nan)
             enc_letter = np.full(36, np.nan)
