@@ -11,7 +11,7 @@ import sys
 tf.config.threading.set_intra_op_parallelism_threads(16)
 tf.config.threading.set_inter_op_parallelism_threads(16)
 
-from model.mobile_net import train_this
+from model.mobile_net_simpler_old import train_this
 
 
 

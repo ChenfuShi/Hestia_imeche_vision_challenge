@@ -57,7 +57,7 @@ def retrieve_extra():
 
 
 def train_generator():
-    while True:
+    for i in range(90000):
         if random.random() < SPIKE_IN_PROB:
             yield retrieve_extra()
         if random.random() > TRUE_NEG_PRO:
@@ -115,4 +115,6 @@ def retrieve_tf_dataset():
     tf_data = tf_data.map((lambda image ,Y: (tf.image.random_hue(image, 0.05), Y)), num_parallel_calls = 6)
     tf_data = tf_data.prefetch(buffer_size = 200)
     tf_data = tf_data.batch(96)
+    tf_data = tf_data.cache("/mnt/iusers01/jw01/mdefscs4/scratch/step_1_cache_06-03-2021.tfdata")
+    tf_data = tf_data.repeat()
     return tf_data

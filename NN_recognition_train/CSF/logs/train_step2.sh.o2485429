@@ -1,0 +1,39 @@
+tools/gcc/git(41):ERROR:105: Unable to locate a modulefile for 'tools/gcc/git/2.8.2'
+              total        used        free      shared  buff/cache   available
+Mem:         128677        8982       60896          99       58798      118984
+Swap:         16383        1361       15022
+/opt/site/sge/default/spool/node781/job_scripts/2485429: line 14: nvidia-smi: command not found
+2021-06-03 12:00:40.684048: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.10.1
+2021-06-03 12:00:59.577821: I tensorflow/compiler/jit/xla_cpu_device.cc:41] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-06-03 12:00:59.582839: W tensorflow/stream_executor/platform/default/dso_loader.cc:60] Could not load dynamic library 'libcuda.so.1'; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory
+2021-06-03 12:00:59.582900: W tensorflow/stream_executor/cuda/cuda_driver.cc:326] failed call to cuInit: UNKNOWN ERROR (303)
+2021-06-03 12:00:59.582949: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (node781.pri.csf3.alces.network): /proc/driver/nvidia/version does not exist
+2021-06-03 12:00:59.583458: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  SSE4.1 SSE4.2 AVX AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-06-03 12:00:59.584641: I tensorflow/compiler/jit/xla_gpu_device.cc:99] Not creating XLA devices, tf_xla_enable_xla_devices not set
+WARNING:tensorflow:`period` argument is deprecated. Please use `save_freq` to specify the frequency in number of batches seen.
+2021-06-03 12:01:03.613767: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:116] None of the MLIR optimization passes are enabled (registered 2)
+2021-06-03 12:01:03.614251: I tensorflow/core/platform/profile_utils/cpu_utils.cc:112] CPU Frequency: 2399985000 Hz
+MODEL NAME = initial_test_step2
+Epoch 1/10
+50/50 - 584s - loss: 4.1330 - letter_loss: 3.8353 - colour_loss: 0.2977 - letter_accuracy: 0.0254 - colour_mae: 0.3408 - colour_mse: 0.2977
+Epoch 2/10
+50/50 - 570s - loss: 3.8181 - letter_loss: 3.7459 - colour_loss: 0.0722 - letter_accuracy: 0.0288 - colour_mae: 0.2192 - colour_mse: 0.0722
+Epoch 3/10
+50/50 - 569s - loss: 3.7973 - letter_loss: 3.7453 - colour_loss: 0.0520 - letter_accuracy: 0.0269 - colour_mae: 0.1792 - colour_mse: 0.0520
+Epoch 4/10
+50/50 - 569s - loss: 3.7822 - letter_loss: 3.7381 - colour_loss: 0.0441 - letter_accuracy: 0.0327 - colour_mae: 0.1627 - colour_mse: 0.0441
+Epoch 5/10
+50/50 - 567s - loss: 3.7572 - letter_loss: 3.7121 - colour_loss: 0.0451 - letter_accuracy: 0.0288 - colour_mae: 0.1657 - colour_mse: 0.0451
+2021-06-03 12:48:47.852076: W tensorflow/python/util/util.cc:348] Sets are not currently considered sequences, but this may change in the future, so consider avoiding using them.
+Epoch 6/10
+50/50 - 558s - loss: 3.7722 - letter_loss: 3.7236 - colour_loss: 0.0486 - letter_accuracy: 0.0277 - colour_mae: 0.1697 - colour_mse: 0.0486
+Epoch 7/10
+50/50 - 574s - loss: 3.7599 - letter_loss: 3.7149 - colour_loss: 0.0449 - letter_accuracy: 0.0294 - colour_mae: 0.1634 - colour_mse: 0.0449
+Epoch 8/10
+50/50 - 569s - loss: 3.7510 - letter_loss: 3.6996 - colour_loss: 0.0514 - letter_accuracy: 0.0298 - colour_mae: 0.1792 - colour_mse: 0.0514
+Epoch 9/10
+50/50 - 572s - loss: 3.7178 - letter_loss: 3.6784 - colour_loss: 0.0394 - letter_accuracy: 0.0281 - colour_mae: 0.1502 - colour_mse: 0.0394
+Epoch 10/10
+50/50 - 571s - loss: 3.7413 - letter_loss: 3.6911 - colour_loss: 0.0502 - letter_accuracy: 0.0260 - colour_mae: 0.1717 - colour_mse: 0.0502
+10/10 - 100s - loss: 3.7166 - letter_loss: 3.5929 - colour_loss: 0.1237 - letter_accuracy: 0.0260 - colour_mae: 0.3027 - colour_mse: 0.1237

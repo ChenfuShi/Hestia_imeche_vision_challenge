@@ -49,8 +49,13 @@ def model_to_train(inputs):
     x = _inverted_res_block(x, filters=32, expansion=6, stride=1,)
     x = _inverted_res_block(x, filters=64, expansion=6, stride=2,)
     x = _inverted_res_block(x, filters=64, expansion=6, stride=1,)
+    x = _inverted_res_block(x, filters=64, expansion=6, stride=1,)
     x = _inverted_res_block(x, filters=128, expansion=6, stride=2,)
-    x = tf.keras.layers.Conv2D(256, kernel_size=1, padding='same', activation=None, use_bias=False)(x)
+    x = _inverted_res_block(x, filters=128, expansion=6, stride=1,)
+    x = _inverted_res_block(x, filters=128, expansion=6, stride=1,)
+    x = _inverted_res_block(x, filters=256, expansion=6, stride=2,)
+    x = _inverted_res_block(x, filters=256, expansion=6, stride=1,)
+    x = tf.keras.layers.Conv2D(512, kernel_size=1, padding='same', activation=None, use_bias=False)(x)
     x = tf.keras.layers.BatchNormalization()(x)
     x = tf.keras.layers.ReLU(6.)(x)
     return x
@@ -82,6 +87,7 @@ def train_this(model_name):
                 metrics={"presence":"accuracy",})
     model.summary()
     checkpoint = tf.keras.callbacks.ModelCheckpoint(f'weights/{model_name}_epoch_5.tf', period=5) 
+    print(model_name)
     model.fit(tf_data, epochs = 10, verbose = 2, steps_per_epoch = 100, callbacks=[checkpoint])
     
     model.save(f'weights/{model_name}.tf', save_format = "tf")

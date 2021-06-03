@@ -58,7 +58,7 @@ def sanitize(coords):
     return X0, X1, Y0, Y1
 
 def secondary_generator():
-    while True:
+    for i in range(480):
         X, enc_letter, enc_colour = generate_batch()
         
         presence_pred, coords_pred = model_step_1.predict(tf.image.resize(X.reshape(BATCH_SIZE,1000,1000,3), (224, 224)))
@@ -78,4 +78,6 @@ def secondary_generator():
 def retrieve_tf_dataset_secondary():
     tf_data = tf.data.Dataset.from_generator(secondary_generator, output_types = (tf.float32,(tf.int32, tf.float32)), output_shapes = ((BATCH_SIZE,224,224,3),((BATCH_SIZE,1),(BATCH_SIZE,3))))
     tf_data = tf_data.prefetch(buffer_size = 3)
+    tf_data = tf_data.cache("/mnt/iusers01/jw01/mdefscs4/scratch/step_2_cache_06-03-2021.tfdata")
+    tf_data = tf_data.repeat()
     return tf_data
