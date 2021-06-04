@@ -65,7 +65,7 @@ def secondary_generator():
         cropped_images = np.empty((BATCH_SIZE,224,224,3), dtype = np.float32)
         for i in range(BATCH_SIZE):
             X0, X1, Y0, Y1 = sanitize(coords_pred[i])
-            img = tf.image.resize(np.expand_dims(X[i, int(Y0*1000):int(Y1*1000)+1, int(X0*1000):int(X1*1000)+1, :], 0),(224,224))
+            img = tf.image.resize(np.expand_dims(X[i, int(Y0*1000):int(Y1*1000)+1, int(X0*1000):int(X1*1000)+1, :], 0),(224,224), method="nearest")
             img = tf.image.random_contrast(img, 0.8, 1.2)
             img = tf.image.random_brightness(img, 40,)
             img = tf.image.random_saturation(img, 0.8, 1.2)
@@ -79,6 +79,6 @@ def retrieve_tf_dataset_secondary(to_catche = True):
     tf_data = tf.data.Dataset.from_generator(secondary_generator, output_types = (tf.float32,(tf.int32, tf.float32)), output_shapes = ((BATCH_SIZE,224,224,3),((BATCH_SIZE,1),(BATCH_SIZE,3))))
     tf_data = tf_data.prefetch(buffer_size = 3)
     if to_catche:
-        tf_data = tf_data.cache("/mnt/iusers01/jw01/mdefscs4/scratch/step_2_cache_06-03-2021.tfdata")
+        tf_data = tf_data.cache("/mnt/iusers01/jw01/mdefscs4/scratch/step_2_cache_06-04-2021.tfdata")
     tf_data = tf_data.repeat()
     return tf_data
