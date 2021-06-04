@@ -226,3 +226,4 @@ Epoch 1/10
 Relying on driver to perform ptx compilation. 
 Modify $PATH to customize ptxas location.
 This message will be only logged once.
+100/100 - 2860s - loss: 0.7124 - presence_loss: 0.4913 - coordinates_loss: 0.2211 - presence_accuracy: 0.7517

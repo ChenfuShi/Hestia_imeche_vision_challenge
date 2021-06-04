@@ -1,3 +1,4 @@
+from typing_extensions import ParamSpecArgs
 import cv2
 import signal
 import sys
@@ -10,18 +11,28 @@ import numpy as np
 
 from camera_class import camera_obj
 
+class NN_recognition():
+    def __init__(self):
+        self.state = "off"
 
-camera = camera_obj()
+    def initialize_script(self):   
+        self.state = "on"     
+        camera = camera_obj()
+        while(True):
+            # Capture frame-by-frame
+            frame = camera.retrieve_frame()
 
-while(True):
-    # Capture frame-by-frame
-    frame = camera.retrieve_frame()
+            # Display the resulting frame
+            cv2.imshow('frame',frame)
+            if (cv2.waitKey(1) & 0xFF == ord('q')) or self.state == "off":
+                break
+        camera.shutdown()
+        cv2.destroyAllWindows()
 
-    # Display the resulting frame
-    cv2.imshow('frame',frame)
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
+    def end_script(self):
+        self.state = "off"
 
-# When everything done, release the capture
-camera.shutdown()
-cv2.destroyAllWindows()
+
+
+
+
