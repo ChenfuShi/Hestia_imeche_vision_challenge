@@ -87,7 +87,7 @@ def paste_square(target_coords, grass_img, square_img, rand_blur = True):
 
 def stitch_random_square(file_grass_img):
     grass_img = Image.open(file_grass_img)
-    grass_img = Image.fromarray(exposure.adjust_gamma(np.array(grass_img), 2))
+    grass_img = Image.fromarray(exposure.adjust_gamma(np.array(grass_img), 1.5))
     square_img, letter, color = get_random_target()
     
     square_initial_size = random.randint(60,180)

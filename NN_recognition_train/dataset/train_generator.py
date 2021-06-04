@@ -43,7 +43,7 @@ list_of_extra_images = glob.glob("../data/ADDITIONAL" + "/*jp*")
 def retrieve_extra():
     img_file = random.choice(list_of_extra_images)
     img_name = os.path.basename(img_file)
-    X = X = exposure.adjust_gamma(np.array(Image.open(img_file)), 1.5)
+    X = X = exposure.adjust_gamma(np.array(Image.open(img_file)), 1.3)
     presence = 1
     mid_X = (custom_labels.loc[img_name,"point_a"] + custom_labels.loc[img_name,"point_c"]) / 2 
     mid_Y = (custom_labels.loc[img_name,"point_b"] + custom_labels.loc[img_name,"point_d"]) / 2 
@@ -69,13 +69,13 @@ def train_generator():
                 enc_letter[char_to_int[letter]] = 1
             else:
                 img_file = random.choice(list_of_grass_images)
-                X = exposure.adjust_gamma(np.array(Image.open(img_file)), 2)
+                X = exposure.adjust_gamma(np.array(Image.open(img_file)), 1.5)
                 presence = 0
                 position = np.full(4, np.nan)
                 enc_letter = np.full(36, np.nan)
         else:
             img_file = random.choice(list_of_negative_images)
-            X = exposure.adjust_gamma(np.array(Image.open(img_file)), 2)
+            X = exposure.adjust_gamma(np.array(Image.open(img_file)), 1.5)
             presence = 0
             position = np.full(4, np.nan)
             enc_letter = np.full(36, np.nan)
@@ -105,7 +105,7 @@ def bg_parallel():
         
     
 
-def retrieve_tf_dataset():
+def retrieve_tf_dataset(to_catche = True):
     tf_data = tf.data.Dataset.from_generator(train_generator, output_types = (tf.float32,(tf.float32,tf.float32)), output_shapes = ((1000,1000,3),((),(4),)))
 
     tf_data = tf_data.map((lambda image ,Y: (tf.image.resize(image, (224, 224)), Y)), num_parallel_calls = 6)
@@ -115,6 +115,7 @@ def retrieve_tf_dataset():
     tf_data = tf_data.map((lambda image ,Y: (tf.image.random_hue(image, 0.05), Y)), num_parallel_calls = 6)
     tf_data = tf_data.prefetch(buffer_size = 200)
     tf_data = tf_data.batch(96)
-    tf_data = tf_data.cache("/mnt/iusers01/jw01/mdefscs4/scratch/step_1_cache_06-03-2021.tfdata")
+    if to_catche:
+        tf_data = tf_data.cache("/mnt/iusers01/jw01/mdefscs4/scratch/step_1_cache_06-03-2021.tfdata")
     tf_data = tf_data.repeat()
     return tf_data

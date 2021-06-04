@@ -75,9 +75,10 @@ def secondary_generator():
         yield cropped_images, (enc_letter, enc_colour)
 
 
-def retrieve_tf_dataset_secondary():
+def retrieve_tf_dataset_secondary(to_catche = True):
     tf_data = tf.data.Dataset.from_generator(secondary_generator, output_types = (tf.float32,(tf.int32, tf.float32)), output_shapes = ((BATCH_SIZE,224,224,3),((BATCH_SIZE,1),(BATCH_SIZE,3))))
     tf_data = tf_data.prefetch(buffer_size = 3)
-    tf_data = tf_data.cache("/mnt/iusers01/jw01/mdefscs4/scratch/step_2_cache_06-03-2021.tfdata")
+    if to_catche:
+        tf_data = tf_data.cache("/mnt/iusers01/jw01/mdefscs4/scratch/step_2_cache_06-03-2021.tfdata")
     tf_data = tf_data.repeat()
     return tf_data
