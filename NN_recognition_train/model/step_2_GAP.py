@@ -5,8 +5,6 @@ import pandas as pd
 import numpy as np
 import random
 
-from tensorflow.python.ops.gen_math_ops import xlog1py
-
 from dataset.secondary_generator import retrieve_tf_dataset_secondary, secondary_generator
 
 IMAGE_SIZE = 224
@@ -31,17 +29,14 @@ def _inverted_res_block(inputs, filters, expansion, stride, add = True):
         return x
 
 def model_to_train(inputs):
-    x = tf.keras.layers.Conv2D(32, kernel_size=3, padding='same', activation=None, use_bias=False)(inputs)
+    x = tf.keras.layers.Conv2D(32, kernel_size=3, strides = 2, padding='same', activation=None, use_bias=False)(inputs)
     x = tf.keras.layers.BatchNormalization()(x)
     x = tf.keras.layers.ReLU(6.)(x)
     x = _inverted_res_block(x, filters=24, expansion=3, stride=2,)
     x = _inverted_res_block(x, filters=48, expansion=6, stride=2,)
     x = _inverted_res_block(x, filters=48, expansion=6, stride=1,)
-    x = _inverted_res_block(x, filters=64, expansion=6, stride=2,)
-    x = _inverted_res_block(x, filters=64, expansion=6, stride=1)
-    x = _inverted_res_block(x, filters=128, expansion=6, stride=1, add = False)
-    x = _inverted_res_block(x, filters=128, expansion=6, stride=1)
-    x = tf.keras.layers.Conv2D(256, kernel_size=1, padding='same', activation=None, use_bias=False)(x)
+    x = _inverted_res_block(x, filters=96, expansion=6, stride=2,)
+    x = tf.keras.layers.Conv2D(300, kernel_size=1, padding='same', activation=None, use_bias=False)(x)
     x = tf.keras.layers.BatchNormalization()(x)
     x = tf.keras.layers.ReLU(6.)(x)
     return x
@@ -51,13 +46,13 @@ def retrieve_mobilenet_model():
 
     inputs = tf.keras.Input(shape=(IMAGE_SIZE, IMAGE_SIZE, 3))
     x = preprocess_input(inputs)
-    x = model_to_train(x)
+    x = tf.keras.applications.MobileNetV2(include_top = False, alpha = 0.5, input_shape = (224,224,3))(x)
     # x = tf.keras.layers.Flatten()(x)
     x = tf.keras.layers.GlobalAveragePooling2D()(x)
-    x = tf.keras.layers.Dense(500, activation = None, use_bias = False)(x)
+    x = tf.keras.layers.Dense(1000, activation = None, use_bias = False)(x)
     x = tf.keras.layers.BatchNormalization()(x)
     x = tf.keras.layers.ReLU(6.)(x)
-    # x = tf.keras.layers.Dropout(0.2)(x)
+    x = tf.keras.layers.Dropout(0.2)(x)
     letter = tf.keras.layers.Dense(36, activation = "sigmoid", name = "letter")(x)
     colour = tf.keras.layers.Dense(3, name = "colour")(x)
     model = tf.keras.Model(inputs, [letter, colour])
@@ -72,11 +67,11 @@ def train_this(model_name):
     model.compile(optimizer=tf.keras.optimizers.Adam(lr=0.005),
                 loss={"letter":tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True), "colour":"mse"},
                 metrics={"letter":"accuracy","colour":["mae","mse"]})
-                
-    checkpoint = tf.keras.callbacks.ModelCheckpoint(f'weights/{model_name}_epoch_5.tf', period=5) 
+    model.summary()            
+    #checkpoint = tf.keras.callbacks.ModelCheckpoint(f'weights/{model_name}_epoch_5.tf', period=5) 
     print(model_name)
-    model.fit(tf_data, epochs = 10, verbose = 2, steps_per_epoch = 50, callbacks=[checkpoint])
+    model.fit(tf_data, epochs = 500, verbose = 2, steps_per_epoch = 100,)# callbacks=[checkpoint])
     
     model.save(f'weights/{model_name}.tf', save_format = "tf")
 
-    model.evaluate(tf_data, steps = 10, verbose = 2)
+    model.evaluate(tf_data, steps = 50, verbose = 2)

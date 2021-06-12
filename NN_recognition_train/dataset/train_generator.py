@@ -57,7 +57,7 @@ def retrieve_extra():
 
 
 def train_generator():
-    for i in range(90000):
+    for i in range(300000):
         if random.random() < SPIKE_IN_PROB:
             yield retrieve_extra()
         if random.random() > TRUE_NEG_PRO:
@@ -105,17 +105,17 @@ def bg_parallel():
         
     
 
-def retrieve_tf_dataset(to_catche = True):
+def retrieve_tf_dataset(to_cache = True):
     tf_data = tf.data.Dataset.from_generator(train_generator, output_types = (tf.float32,(tf.float32,tf.float32)), output_shapes = ((1000,1000,3),((),(4),)))
 
-    tf_data = tf_data.map((lambda image ,Y: (tf.image.resize(image, (224, 224)), Y)), num_parallel_calls = 6)
+    tf_data = tf_data.map((lambda image ,Y: (tf.image.resize(image, (224, 224), method="nearest"), Y)), num_parallel_calls = 6)
     tf_data = tf_data.map((lambda image ,Y: (tf.image.random_contrast(image, 0.8, 1.2), Y)), num_parallel_calls = 6)
     tf_data = tf_data.map((lambda image ,Y: (tf.image.random_brightness(image, 40,), Y)), num_parallel_calls = 6)
     tf_data = tf_data.map((lambda image ,Y: (tf.image.random_saturation(image, 0.8, 1.2), Y)), num_parallel_calls = 6)
     tf_data = tf_data.map((lambda image ,Y: (tf.image.random_hue(image, 0.05), Y)), num_parallel_calls = 6)
     tf_data = tf_data.prefetch(buffer_size = 200)
     tf_data = tf_data.batch(96)
-    if to_catche:
-        tf_data = tf_data.cache("/mnt/iusers01/jw01/mdefscs4/scratch/step_1_cache_06-03-2021.tfdata")
+    if to_cache:
+        tf_data = tf_data.cache("/mnt/iusers01/jw01/mdefscs4/scratch/step_1_cache_06-04-2021.tfdata")
     tf_data = tf_data.repeat()
     return tf_data

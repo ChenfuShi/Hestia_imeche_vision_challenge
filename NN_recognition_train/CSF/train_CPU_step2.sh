@@ -8,10 +8,11 @@
 
 # module load apps/anaconda3/5.2.0/bin # not needed
 
-export OMP_NUM_THREADS=$NSLOTS
+export OMP_NUM_THREADS=8
 
 # check nvidia-smi
 nvidia-smi 
+lscpu 
 
 ## activate conda environment
 # this also includes cuda and cuda toolkits

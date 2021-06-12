@@ -227,3 +227,23 @@ Relying on driver to perform ptx compilation.
 Modify $PATH to customize ptxas location.
 This message will be only logged once.
 100/100 - 2860s - loss: 0.7124 - presence_loss: 0.4913 - coordinates_loss: 0.2211 - presence_accuracy: 0.7517
+Epoch 2/10
+100/100 - 2591s - loss: 0.1555 - presence_loss: 0.1317 - coordinates_loss: 0.0238 - presence_accuracy: 0.9569
+Epoch 3/10
+100/100 - 2967s - loss: 0.1060 - presence_loss: 0.0896 - coordinates_loss: 0.0163 - presence_accuracy: 0.9714
+Epoch 4/10
+100/100 - 2783s - loss: 0.0630 - presence_loss: 0.0548 - coordinates_loss: 0.0082 - presence_accuracy: 0.9824
+Epoch 5/10
+100/100 - 2467s - loss: 0.0626 - presence_loss: 0.0565 - coordinates_loss: 0.0061 - presence_accuracy: 0.9816
+2021-06-04 12:41:40.634586: W tensorflow/python/util/util.cc:348] Sets are not currently considered sequences, but this may change in the future, so consider avoiding using them.
+Epoch 6/10
+100/100 - 2462s - loss: 0.0486 - presence_loss: 0.0435 - coordinates_loss: 0.0051 - presence_accuracy: 0.9865
+Epoch 7/10
+100/100 - 2476s - loss: 0.0365 - presence_loss: 0.0311 - coordinates_loss: 0.0054 - presence_accuracy: 0.9896
+Epoch 8/10
+100/100 - 2563s - loss: 0.0395 - presence_loss: 0.0357 - coordinates_loss: 0.0037 - presence_accuracy: 0.9887
+Epoch 9/10
+100/100 - 2568s - loss: 0.0298 - presence_loss: 0.0269 - coordinates_loss: 0.0030 - presence_accuracy: 0.9898
+Epoch 10/10
+100/100 - 1269s - loss: 0.0323 - presence_loss: 0.0274 - coordinates_loss: 0.0050 - presence_accuracy: 0.9911
+10/10 - 1s - loss: 0.0162 - presence_loss: 0.0127 - coordinates_loss: 0.0035 - presence_accuracy: 0.9958
