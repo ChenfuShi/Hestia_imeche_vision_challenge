@@ -38,7 +38,7 @@ def generate_batch():
     enc_letter = np.zeros((BATCH_SIZE,1), dtype = np.int32)
     enc_colour = np.zeros((BATCH_SIZE,3), dtype = np.float32)
     i = 0
-    with ProcessPoolExecutor(max_workers = 3) as executor:
+    with ProcessPoolExecutor(max_workers = 2) as executor:
         for X, coords, letter, colour in executor.map(stitch_random_square, random.sample(list_of_grass_images,BATCH_SIZE)):
             images[i] = X
             enc_letter[i,0] = char_to_int[letter]
@@ -51,10 +51,10 @@ def sanitize(coords):
     B = np.clip(coords[1],0.01,0.99)
     C = np.clip(coords[2],0.15,0.7)
     D = np.clip(coords[3],0.15,0.7)
-    X0 = max(A - D/1, 0)
-    Y0 = max(B - C/1, 0)
-    X1 = min(A + D/1, 1)
-    Y1 = min(B + C/1, 1)
+    X0 = max(A - D/1.3, 0)
+    Y0 = max(B - C/1.3, 0)
+    X1 = min(A + D/1.3, 1)
+    Y1 = min(B + C/1.3, 1)
     return X0, X1, Y0, Y1
 
 def secondary_generator():

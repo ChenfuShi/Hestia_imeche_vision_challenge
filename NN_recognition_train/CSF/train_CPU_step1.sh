@@ -12,6 +12,7 @@ export OMP_NUM_THREADS=$NSLOTS
 
 # check nvidia-smi
 nvidia-smi 
+lscpu 
 
 ## activate conda environment
 # this also includes cuda and cuda toolkits
