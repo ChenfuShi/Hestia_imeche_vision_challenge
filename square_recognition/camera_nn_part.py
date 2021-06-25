@@ -26,6 +26,9 @@ class NN_recognition():
         # results
         self.results = []
 
+        # initialize coral
+        
+
         thread = threading.Thread(target=self.run_loop, args=())
         thread.daemon = True                            # Daemonize thread (allow main to die)
         thread.start()                                  # Start the execution
