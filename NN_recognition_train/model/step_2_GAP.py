@@ -65,8 +65,9 @@ def train_this(model_name):
     model = retrieve_mobilenet_model()
 
     model.compile(optimizer=tf.keras.optimizers.Adam(lr=0.005),
-                loss={"letter":tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True), "colour":"mse"},
-                metrics={"letter":"accuracy","colour":["mae","mse"]})
+                loss={"letter":tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True), "colour":"mae"},
+                metrics={"letter":"accuracy","colour":["mae","mse"]},
+                loss_weights={"letter":1, "colour":0})
     model.summary()            
     #checkpoint = tf.keras.callbacks.ModelCheckpoint(f'weights/{model_name}_epoch_5.tf', period=5) 
     print(model_name)

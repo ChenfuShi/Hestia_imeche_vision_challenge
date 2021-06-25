@@ -87,7 +87,7 @@ def train_this(model_name):
     model.summary()
     #checkpoint = tf.keras.callbacks.ModelCheckpoint(f'weights/{model_name}_epoch_5.tf', period=5) 
     print(model_name)
-    model.fit(tf_data, epochs = 50, verbose = 2, steps_per_epoch = 100,)# callbacks=[checkpoint])
+    model.fit(tf_data, epochs = 75, verbose = 2, steps_per_epoch = 100,)# callbacks=[checkpoint])
     
     model.save(f'weights/{model_name}.tf', save_format = "tf")
 

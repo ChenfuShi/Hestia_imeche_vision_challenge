@@ -15,7 +15,7 @@ TRUE_NEGATIVES_DIR = "../data/true_negatives_pretrain"
 
 STITCH_PROB = 0.5
 TRUE_NEG_PRO = 0.2
-SPIKE_IN_PROB = 0.01
+SPIKE_IN_PROB = 0.02
 
 alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 # define a mapping of chars to integers
@@ -43,7 +43,10 @@ list_of_extra_images = glob.glob("../data/ADDITIONAL" + "/*jp*")
 def retrieve_extra():
     img_file = random.choice(list_of_extra_images)
     img_name = os.path.basename(img_file)
-    X = X = exposure.adjust_gamma(np.array(Image.open(img_file)), 1.3)
+    if "hough_real" not in img_name:
+        X = exposure.adjust_gamma(np.array(Image.open(img_file)), 1.3)
+    elif "hough_real" in img_name:
+        X = np.array(Image.open(img_file))
     presence = 1
     mid_X = (custom_labels.loc[img_name,"point_a"] + custom_labels.loc[img_name,"point_c"]) / 2 
     mid_Y = (custom_labels.loc[img_name,"point_b"] + custom_labels.loc[img_name,"point_d"]) / 2 
@@ -116,6 +119,6 @@ def retrieve_tf_dataset(to_cache = True):
     tf_data = tf_data.prefetch(buffer_size = 200)
     tf_data = tf_data.batch(96)
     if to_cache:
-        tf_data = tf_data.cache("/mnt/iusers01/jw01/mdefscs4/scratch/step_1_cache_06-04-2021.tfdata")
+        tf_data = tf_data.cache("/mnt/iusers01/jw01/mdefscs4/scratch/step_1_cache_06-25-2021.tfdata")
     tf_data = tf_data.repeat()
     return tf_data

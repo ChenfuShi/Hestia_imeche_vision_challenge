@@ -9,6 +9,7 @@ from dataset.square_generation import stitch_random_square
 from PIL import Image
 import multiprocessing
 from concurrent.futures import ProcessPoolExecutor
+from skimage import exposure
 DATASET_DIR = "../data/grass_pretrain"
 TRUE_NEGATIVES_DIR = "../data/true_negatives_pretrain"
 
@@ -18,11 +19,12 @@ char_to_int = dict((c, i) for i, c in enumerate(alphabet))
 int_to_char = dict((i, c) for i, c in enumerate(alphabet))
 
 BATCH_SIZE = 96
+SPIKE_IN_PROB = 0.02
 
 list_of_grass_images = glob.glob(DATASET_DIR + "/*jpeg")
 
 ##########################################
-model_to_use = "step1_bigger_longertrain.tf"
+model_to_use = "step1_final.tf"
 ##########################################
 def custom_mse(y_true,y_pred):
     y_pred_filtered = y_pred[~tf.math.is_nan(tf.reduce_sum(y_true,axis = 1))]
@@ -33,13 +35,42 @@ model_step_1 = k.models.load_model(f"weights/{model_to_use}", custom_objects = {
 
 
 # in here the function should randomly chose to spike in some real data
+
+csv_file = "../data/custom_data_1.csv"
+custom_labels = pd.read_csv(csv_file, index_col = "image")
+list_of_extra_images = glob.glob("../data/ADDITIONAL" + "/*jp*")
+def retrieve_extra():
+    img_file = random.choice(list_of_extra_images)
+    img_name = os.path.basename(img_file)
+    if "hough_real" not in img_name:
+        X = exposure.adjust_gamma(np.array(Image.open(img_file)), 1.3)
+    elif "hough_real" in img_name:
+        X = np.array(Image.open(img_file))
+    presence = 1
+    mid_X = (custom_labels.loc[img_name,"point_a"] + custom_labels.loc[img_name,"point_c"]) / 2 
+    mid_Y = (custom_labels.loc[img_name,"point_b"] + custom_labels.loc[img_name,"point_d"]) / 2 
+    total_h = custom_labels.loc[img_name,"point_d"] - custom_labels.loc[img_name,"point_b"]
+    total_w = custom_labels.loc[img_name,"point_c"] - custom_labels.loc[img_name,"point_a"]
+    position = np.array((mid_X/1000, mid_Y/1000, total_h/1000, total_w/1000))
+    enc_letter = np.zeros(36)
+    enc_letter[char_to_int[custom_labels.loc[img_name,"letter"]]] = 1
+    return X, position, custom_labels.loc[img_name,"letter"], (128,128,128)
+
+
+def retrieve_real_or_spike(file):
+    if random.random() < SPIKE_IN_PROB:
+        return retrieve_extra()
+    else:
+        return stitch_random_square(file)
+
+
 def generate_batch():
     images = np.empty((BATCH_SIZE,1000,1000,3), dtype = np.float32)
     enc_letter = np.zeros((BATCH_SIZE,1), dtype = np.int32)
     enc_colour = np.zeros((BATCH_SIZE,3), dtype = np.float32)
     i = 0
     with ProcessPoolExecutor(max_workers = 2) as executor:
-        for X, coords, letter, colour in executor.map(stitch_random_square, random.sample(list_of_grass_images,BATCH_SIZE)):
+        for X, coords, letter, colour in executor.map(retrieve_real_or_spike, random.sample(list_of_grass_images,BATCH_SIZE)):
             images[i] = X
             enc_letter[i,0] = char_to_int[letter]
             enc_colour[i,:] = np.array(colour)/255
@@ -58,7 +89,7 @@ def sanitize(coords):
     return X0, X1, Y0, Y1
 
 def secondary_generator():
-    for i in range(940): # will increase it even more when the step1 is run again with real data spiked in
+    for i in range(3000): 
         X, enc_letter, enc_colour = generate_batch()
         
         presence_pred, coords_pred = model_step_1.predict(tf.image.resize(X.reshape(BATCH_SIZE,1000,1000,3), (224, 224), method="nearest"))
@@ -79,6 +110,6 @@ def retrieve_tf_dataset_secondary(to_cache = True):
     tf_data = tf.data.Dataset.from_generator(secondary_generator, output_types = (tf.float32,(tf.int32, tf.float32)), output_shapes = ((BATCH_SIZE,224,224,3),((BATCH_SIZE,1),(BATCH_SIZE,3))))
     tf_data = tf_data.prefetch(buffer_size = 3)
     if to_cache:
-        tf_data = tf_data.cache("/mnt/iusers01/jw01/mdefscs4/scratch/step_2_cache_11-04-2021.tfdata")
+        tf_data = tf_data.cache("/mnt/iusers01/jw01/mdefscs4/scratch/step_2_cache_06-25-2021.tfdata")
     tf_data = tf_data.repeat()
     return tf_data

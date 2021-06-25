@@ -90,7 +90,7 @@ def stitch_random_square(file_grass_img):
     grass_img = Image.fromarray(exposure.adjust_gamma(np.array(grass_img), 1.5))
     square_img, letter, color = get_random_target()
     
-    square_initial_size = random.randint(60,180)
+    square_initial_size = random.randint(45,160)
     A_X, A_Y = square_initial_size//2,square_initial_size//2
     B_X, B_Y = A_X, A_Y + square_initial_size
     C_X, C_Y = random.randint(int(A_X + 0.9 * square_initial_size), int(A_X + 1.1 * square_initial_size)), random.randint(int(A_Y - 0.1 * square_initial_size), int(A_Y + 0.1 * square_initial_size))
