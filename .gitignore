@@ -7,9 +7,9 @@ __pycache__/
 *.jpeg
 *.jpg
 data/
-NN_recognition_train/weights/
+NN_recognition_train/
 NN_recognition_train/CSF/
-tests_chenfu/
+
 
 # C extensions
 *.so

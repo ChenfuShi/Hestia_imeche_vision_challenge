@@ -69,7 +69,7 @@ def generate_batch():
     enc_letter = np.zeros((BATCH_SIZE,1), dtype = np.int32)
     enc_colour = np.zeros((BATCH_SIZE,3), dtype = np.float32)
     i = 0
-    with ProcessPoolExecutor(max_workers = 2) as executor:
+    with ProcessPoolExecutor(max_workers = 3) as executor:
         for X, coords, letter, colour in executor.map(retrieve_real_or_spike, random.sample(list_of_grass_images,BATCH_SIZE)):
             images[i] = X
             enc_letter[i,0] = char_to_int[letter]
@@ -89,7 +89,7 @@ def sanitize(coords):
     return X0, X1, Y0, Y1
 
 def secondary_generator():
-    for i in range(3000): 
+    for i in range(2000): 
         X, enc_letter, enc_colour = generate_batch()
         
         presence_pred, coords_pred = model_step_1.predict(tf.image.resize(X.reshape(BATCH_SIZE,1000,1000,3), (224, 224), method="nearest"))

@@ -78,7 +78,8 @@ def retrieve_mobilenet_model():
 def train_this(model_name):
 
     tf_data = retrieve_tf_dataset()
-
+    # for X,Y in tf_data.take(3200):
+    #     pass
     model = retrieve_mobilenet_model()
 
     model.compile(optimizer=tf.keras.optimizers.Adam(lr=0.005),

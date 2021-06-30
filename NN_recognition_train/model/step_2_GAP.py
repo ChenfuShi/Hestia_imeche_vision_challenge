@@ -9,44 +9,12 @@ from dataset.secondary_generator import retrieve_tf_dataset_secondary, secondary
 
 IMAGE_SIZE = 224
 
-def _inverted_res_block(inputs, filters, expansion, stride, add = True):
-    x = inputs
-    # expand
-    x = tf.keras.layers.Conv2D(filters * expansion, kernel_size=1, padding='same', activation=None, use_bias=False)(x)
-    x = tf.keras.layers.BatchNormalization()(x)
-    x = tf.keras.layers.ReLU(6.)(x)
-    # depthwise conv
-    x = tf.keras.layers.DepthwiseConv2D(kernel_size=3, strides = stride, padding='same', activation=None, use_bias=False)(x)
-    x = tf.keras.layers.BatchNormalization()(x)
-    x = tf.keras.layers.ReLU(6.)(x)
-    # project
-    x = tf.keras.layers.Conv2D(filters, kernel_size=1, padding='same', activation=None, use_bias=False)(x)
-    x = tf.keras.layers.BatchNormalization()(x)
-    if stride == 1 and add:
-        x = tf.keras.layers.Add()([inputs, x])
-        return x
-    else:
-        return x
-
-def model_to_train(inputs):
-    x = tf.keras.layers.Conv2D(32, kernel_size=3, strides = 2, padding='same', activation=None, use_bias=False)(inputs)
-    x = tf.keras.layers.BatchNormalization()(x)
-    x = tf.keras.layers.ReLU(6.)(x)
-    x = _inverted_res_block(x, filters=24, expansion=3, stride=2,)
-    x = _inverted_res_block(x, filters=48, expansion=6, stride=2,)
-    x = _inverted_res_block(x, filters=48, expansion=6, stride=1,)
-    x = _inverted_res_block(x, filters=96, expansion=6, stride=2,)
-    x = tf.keras.layers.Conv2D(300, kernel_size=1, padding='same', activation=None, use_bias=False)(x)
-    x = tf.keras.layers.BatchNormalization()(x)
-    x = tf.keras.layers.ReLU(6.)(x)
-    return x
-
 def retrieve_mobilenet_model():
     preprocess_input = tf.keras.applications.mobilenet_v2.preprocess_input
 
     inputs = tf.keras.Input(shape=(IMAGE_SIZE, IMAGE_SIZE, 3))
     x = preprocess_input(inputs)
-    x = tf.keras.applications.MobileNetV2(include_top = False, alpha = 0.5, input_shape = (224,224,3))(x)
+    x = tf.keras.applications.MobileNetV2(include_top = False, alpha = 0.5, input_shape = (224,224,3), weights = "imagenet")(x)
     # x = tf.keras.layers.Flatten()(x)
     x = tf.keras.layers.GlobalAveragePooling2D()(x)
     x = tf.keras.layers.Dense(1000, activation = None, use_bias = False)(x)
@@ -61,13 +29,14 @@ def retrieve_mobilenet_model():
 def train_this(model_name):
 
     tf_data = retrieve_tf_dataset_secondary()
-
+    # for X,Y in tf_data.take(2050):
+    #     pass
     model = retrieve_mobilenet_model()
 
-    model.compile(optimizer=tf.keras.optimizers.Adam(lr=0.005),
+    model.compile(optimizer=tf.keras.optimizers.Adam(lr=0.001),
                 loss={"letter":tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True), "colour":"mae"},
                 metrics={"letter":"accuracy","colour":["mae","mse"]},
-                loss_weights={"letter":1, "colour":0})
+                loss_weights={"letter":1, "colour":1})
     model.summary()            
     #checkpoint = tf.keras.callbacks.ModelCheckpoint(f'weights/{model_name}_epoch_5.tf', period=5) 
     print(model_name)

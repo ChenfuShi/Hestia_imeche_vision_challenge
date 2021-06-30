@@ -3,7 +3,7 @@
 #$ -j y
 #$ -o logs
 ##$ -l nvidia_v100
-#$ -pe smp.pe 16
+#$ -pe smp.pe 24
 # qsub -v model_name=initial_mobilenet train.sh
 
 # module load apps/anaconda3/5.2.0/bin # not needed
@@ -11,7 +11,7 @@
 export OMP_NUM_THREADS=8
 
 # check nvidia-smi
-nvidia-smi 
+# nvidia-smi 
 lscpu 
 
 ## activate conda environment
