@@ -1,3 +1,7 @@
+###################
+# this contains the model definition and the training functions for the step 2 of the algorithm, 
+# which taken a crop of the bigger image retrieves the letter and the colour of the inner square.
+###################
 import tensorflow as tf
 import tensorflow.keras as k
 import os

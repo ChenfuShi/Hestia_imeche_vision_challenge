@@ -1,3 +1,7 @@
+###################
+# this contains the tf dataset for the step 2. 
+# It generates normal images, then runs the model for the step 1 to identify the boundary of the box, then it retuns the cropped image
+###################
 import os
 import pandas as pd
 import numpy as np

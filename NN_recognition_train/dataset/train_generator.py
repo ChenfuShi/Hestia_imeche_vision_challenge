@@ -1,3 +1,6 @@
+###################
+# this contains the functions needed to generate a tf dataset for the step 1 of the algorithm
+###################
 import os
 import pandas as pd
 import numpy as np
@@ -83,30 +86,7 @@ def train_generator():
             position = np.full(4, np.nan)
             enc_letter = np.full(36, np.nan)
         # preprocess input for imagenet style
-        yield X, (presence, position)
-
-def bg_parallel():
-    def _bg_gen(gen, queue):
-        g = gen()
-        while True:
-            queue.put(next(g))
-
-
-    pqueue = multiprocessing.Queue(maxsize=100)
-
-    p_list = [multiprocessing.Process(target=_bg_gen, args=(train_generator, pqueue)) for x in range(6)]
-
-    [p.start() for p in p_list]
-    for i in range(10000):
-        while True:
-            a = pqueue.get()
-            if type(a) is tuple:
-                if a[0].shape == (1000,1000,3):
-                    break
-            print(a)
-        yield a
-        
-    
+        yield X, (presence, position)    
 
 def retrieve_tf_dataset(to_cache = True):
     tf_data = tf.data.Dataset.from_generator(train_generator, output_types = (tf.float32,(tf.float32,tf.float32)), output_shapes = ((1000,1000,3),((),(4),)))

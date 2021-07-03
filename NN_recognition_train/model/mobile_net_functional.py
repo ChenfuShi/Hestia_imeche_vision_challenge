@@ -1,3 +1,6 @@
+###################
+# this contains the model definition and the training functions for the step 1 of the algorithm, which identifies the location of the square in the image.
+###################
 import tensorflow as tf
 import tensorflow.keras as k
 import os

@@ -1,3 +1,7 @@
+###################
+# this was used to pretrain the final models with imagenet data. Didn't get used in the end because I just used pretrained weights from keras.
+###################
+
 import tensorflow as tf
 import tensorflow.keras as k
 import os

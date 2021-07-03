@@ -1,3 +1,6 @@
+###################
+# these functions generate a square and then stitch it on a random image to generate fake data
+###################
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 import random
 import glob

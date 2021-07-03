@@ -6,3 +6,4 @@ directories:
 - recording_buttons: the two scripts that were used to collect the videos from the plane
 - square_recognition: the pipeline that runs on the plane itself for recognition
 - tests_chenfu: these are the jupyter notebooks that I used for development
+
